@@ -1,23 +1,60 @@
-# foursquare-venue-client
+# Foursquare Venue API Client
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
 [![Build Status][ico-travis]][link-travis]
 [![Total Downloads][ico-downloads]][link-downloads]
 
+A `PHP` client library for interacting with the `Foursquare` userless venue API.
+[HTTPlug](http://httplug.io/) is used to support multiple `HTTP` 
+clients including `Guzzle`, `Buzz`, and `Curl`.
 
 ## Install
 
-Via Composer
+Use composer to install this library and your preferred `HTTP` client.
 
 ``` bash
 $ composer require ben-gibson/foursquare-venue-client
+$ composer require php-http/guzzle6-adapter
 ```
 
 ## Usage
 
 ``` php
-$client = new
+<?php
+      
+require_once __DIR__.'/../vendor/autoload.php';
+    
+use Gibbo\Foursquare\Client\Configuration;
+use Gibbo\Foursquare\Client\Entity\Coordinates;
+use Gibbo\Foursquare\Client\Factory;
+use Gibbo\Foursquare\Client\Identifier;
+use Gibbo\Foursquare\Client\Options\Search;
+    
+$client = Factory::create(new Configuration('client-id', 'client-secret'));
+    
+// find
+$venue = $client->getVenue(new Identifier('430d0a00f964a5203e271fe3'));
+
+$venue->getName();
+$venue->getDetails()->getRating();
+...
+        
+// search by coordinates
+$options = Search::createWithCoordinates(new Coordinates(28.538336, -81.379234))->setLimit(10)->setRadius(500);
+$venues = $client->search($options);
+    
+// search by place
+$options = Search::createWithPlace('Chicago, IL')->setQuery('Donuts');
+$venues = $client->search($options);
+    
+// explore
+$options = Explore::createWithCoordinates(new Coordinates(28.538336, -81.379234))->setIncludeOpenOnly(true);
+$venues = $client->explore($options);
+    
+// trending
+$options = Trending::createWithCoordinates(new Coordinates(28.538336, -81.379234));
+$venues = $client->trending($options);
 ```
 
 ## Change log
