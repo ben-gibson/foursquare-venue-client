@@ -33,13 +33,12 @@ use Gibbo\Foursquare\Client\Options\Search;
     
 $client = Factory::create(new Configuration('client-id', 'client-secret'));
     
-// find
+// Get by id
 $venue = $client->getVenue(new Identifier('430d0a00f964a5203e271fe3'));
 
 $venue->getName();
 $venue->getDetails()->getRating();
-...
-        
+
 // Search by coordinates
 $options = Search::createWithCoordinates(new Coordinates(28.538336, -81.379234))
     ->setLimit(10)
