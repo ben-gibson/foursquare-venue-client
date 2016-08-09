@@ -40,21 +40,21 @@ $venue->getName();
 $venue->getDetails()->getRating();
 ...
         
-// search by coordinates
-$options = Search::createWithCoordinates(new Coordinates(28.538336, -81.379234))->setLimit(10)->setRadius(500);
+// Search by coordinates
+$options = Search::createWithCoordinates(new Coordinates(28.538336, -81.379234))
+    ->setLimit(10)
+    ->setRadius(500)
+    ->setQuery('Donuts');
+    
 $venues = $client->search($options);
     
-// search by place
-$options = Search::createWithPlace('Chicago, IL')->setQuery('Donuts');
+// Search by place
+$options = Search::createWithPlace('Chicago, IL')
+    ->setLimit(10)
+    ->setRadius(500)
+    ->setQuery('Donuts');
+    
 $venues = $client->search($options);
-    
-// explore
-$options = Explore::createWithCoordinates(new Coordinates(28.538336, -81.379234))->setIncludeOpenOnly(true);
-$venues = $client->explore($options);
-    
-// trending
-$options = Trending::createWithCoordinates(new Coordinates(28.538336, -81.379234));
-$venues = $client->trending($options);
 ```
 
 ## Change log
@@ -69,7 +69,7 @@ $ composer test
 
 ## Contributing
 
-Please see [CONTRIBUTING](CONTRIBUTING.md) and [CONDUCT](CONDUCT.md) for details.
+Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ## Security
 
@@ -88,7 +88,6 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
 [ico-travis]: https://img.shields.io/travis/ben-gibson/foursquare-venue-client/master.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/ben-gibson/foursquare-venue-client.svg?style=flat-square
-
 [link-packagist]: https://packagist.org/packages/ben-gibson/foursquare-venue-client
 [link-travis]: https://travis-ci.org/ben-gibson/foursquare-venue-client
 [link-downloads]: https://packagist.org/packages/ben-gibson/foursquare-venue-client
