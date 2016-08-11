@@ -3,6 +3,7 @@
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
 [![Build Status][ico-travis]][link-travis]
+[![Coverage][ico-coveralls]][link-coveralls]
 [![Total Downloads][ico-downloads]][link-downloads]
 
 A `PHP` client library for interacting with the `Foursquare` userless venue API.
@@ -84,11 +85,13 @@ If you discover any security related issues, please email ben.gibson.2011@gmail.
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
 [ico-version]: https://img.shields.io/packagist/v/ben-gibson/foursquare-venue-client.svg?style=flat-square
-[ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
+[ico-license]: https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square
 [ico-travis]: https://img.shields.io/travis/ben-gibson/foursquare-venue-client/master.svg?style=flat-square
+[ico-coveralls]: https://img.shields.io/coveralls/ben-gibson/foursquare-venue-client/master.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/ben-gibson/foursquare-venue-client.svg?style=flat-square
 [link-packagist]: https://packagist.org/packages/ben-gibson/foursquare-venue-client
 [link-travis]: https://travis-ci.org/ben-gibson/foursquare-venue-client
+[link-coveralls]: https://coveralls.io/github/ben-gibson/foursquare-venue-client
 [link-downloads]: https://packagist.org/packages/ben-gibson/foursquare-venue-client
 [link-author]: https://github.com/ben-gibson
 [link-contributors]: ../../contributors
