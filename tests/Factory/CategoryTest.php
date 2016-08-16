@@ -1,6 +1,6 @@
 <?php
 
-namespace Gibbo\Foursquare\Client\Tests\Factory;
+namespace Gibbo\Foursquare\ClientTests\Factory;
 
 use Gibbo\Foursquare\Client\Entity\Category;
 use Gibbo\Foursquare\Client\Factory\Category as CategoryFactory;
@@ -95,8 +95,9 @@ JSON
      * @dataProvider invalidDescriptionProvider
      * @expectedException \Gibbo\Foursquare\Client\Factory\Exception\InvalidDescriptionException
      */
-    public function testCreateWithInvalidDescription(\stdClass $description)
+    public function testCreateWithInvalidDescription(\stdClass $description, $property)
     {
+        $this->expectExceptionMessage("The entity description is missing the mandatory parameter '{$property}'");
         $this->getFactory()->create($description);
     }
 
@@ -108,7 +109,7 @@ JSON
     public function invalidDescriptionProvider()
     {
         return [
-            [ // NO NAME
+            'No Name' => [
                 json_decode(
                     <<<JSON
                     {
@@ -123,8 +124,9 @@ JSON
                     }
 JSON
                 ),
+                'name'
             ],
-            [ // NO ID
+            'No Id' => [
                 json_decode(
                     <<<JSON
                     {
@@ -139,8 +141,9 @@ JSON
                     }
 JSON
                 ),
+                'id'
             ],
-            [ // NO ICON
+            'No Icon' => [
                 json_decode(
                     <<<JSON
                     {
@@ -152,6 +155,7 @@ JSON
                     }
 JSON
                 ),
+                'icon'
             ],
         ];
     }

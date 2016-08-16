@@ -34,11 +34,11 @@ class Location
         $state = null,
         $country = null
     ) {
-        Assertion::nullOrString($address);
-        Assertion::nullOrString($postalCode);
-        Assertion::nullOrString($city);
-        Assertion::nullOrString($state);
-        Assertion::nullOrString($country);
+        \Assert\that($address)->nullOr()->string()->notEmpty();
+        \Assert\that($postalCode)->nullOr()->string()->notEmpty();
+        \Assert\that($city)->nullOr()->string()->notEmpty();
+        \Assert\that($state)->nullOr()->string()->notEmpty();
+        \Assert\that($country)->nullOr()->string()->notEmpty();
 
         $this->address     = $address;
         $this->coordinates = $coordinates;

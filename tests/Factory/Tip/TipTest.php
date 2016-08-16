@@ -1,6 +1,6 @@
 <?php
 
-namespace Gibbo\Foursquare\Client\Tests\Factory\Tip;
+namespace Gibbo\Foursquare\ClientTests\Factory\Tip;
 
 use Gibbo\Foursquare\Client\Entity\Tip\Tip;
 use Gibbo\Foursquare\Client\Factory\Tip\Tip as TipFactory;
@@ -91,8 +91,9 @@ JSON
      * @dataProvider invalidDescriptionProvider
      * @expectedException \Gibbo\Foursquare\Client\Factory\Exception\InvalidDescriptionException
      */
-    public function testCreateWithInvalidDescription(\stdClass $description)
+    public function testCreateWithInvalidDescription(\stdClass $description, $property)
     {
+        $this->expectExceptionMessage("The entity description is missing the mandatory parameter '{$property}'");
         $this->getFactory()->create($description);
     }
 
@@ -104,7 +105,7 @@ JSON
     public function invalidDescriptionProvider()
     {
         return [
-            [ // NO ID
+            'No id' => [
                 json_decode(
                     <<<JSON
                     {
@@ -141,9 +142,10 @@ JSON
                         }
                     }
 JSON
-                )
+                ),
+                'id'
             ],
-            [ // NO TEXT
+            'No text' => [
                 json_decode(
                     <<<JSON
                     {
@@ -180,9 +182,10 @@ JSON
                         }
                     }
 JSON
-                )
+                ),
+                'text'
             ],
-            [ // NO TYPE
+            'No type' => [
                 json_decode(
                     <<<JSON
                     {
@@ -220,9 +223,10 @@ JSON
                         }
                     }
 JSON
-                )
+                ),
+                'type'
             ],
-            [ // NO AGREE COUNT
+            'No agree count' => [
                 json_decode(
                     <<<JSON
                     {
@@ -260,9 +264,10 @@ JSON
                         }
                     }
 JSON
-                )
+                ),
+                'agreeCount'
             ],
-            [ // NO DISAGREE COUNT
+            'No disagree count' => [
                 json_decode(
                     <<<JSON
                     {
@@ -300,7 +305,8 @@ JSON
                         }
                     }
 JSON
-                )
+                ),
+                'disagreeCount'
             ]
         ];
     }

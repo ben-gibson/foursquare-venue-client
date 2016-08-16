@@ -1,6 +1,6 @@
 <?php
 
-namespace Gibbo\Foursquare\Client\Tests\Options;
+namespace Gibbo\Foursquare\ClientTests\Options;
 
 use Gibbo\Foursquare\Client\Entity\Coordinates;
 use Gibbo\Foursquare\Client\Options\Search;

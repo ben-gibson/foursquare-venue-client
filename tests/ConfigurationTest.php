@@ -1,6 +1,6 @@
 <?php
 
-namespace Gibbo\Foursquare\Client\Tests;
+namespace Gibbo\Foursquare\ClientTests;
 
 use Gibbo\Foursquare\Client\Configuration;
 

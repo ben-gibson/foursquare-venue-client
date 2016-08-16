@@ -24,10 +24,10 @@ class Stats
      */
     public function __construct($checkins, $users, $tips, $visits)
     {
-        Assertion::integer($checkins);
-        Assertion::integer($users);
-        Assertion::integer($tips);
-        Assertion::integer($visits);
+        \Assert\that($checkins)->integer()->greaterOrEqualThan(0);
+        \Assert\that($users)->integer()->greaterOrEqualThan(0);
+        \Assert\that($tips)->integer()->greaterOrEqualThan(0);
+        \Assert\that($visits)->integer()->greaterOrEqualThan(0);
 
         $this->checkins = $checkins;
         $this->users    = $users;

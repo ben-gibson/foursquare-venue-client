@@ -29,7 +29,7 @@ class Detail
      * @param float|null $rating
      * @param string|null $url
      * @param int|null $hereNow
-     * @param [string] $tags
+     * @param string[] $tags
      * @param int|null $likes
      * @param \DateTimeZone|null $timeZone
      */

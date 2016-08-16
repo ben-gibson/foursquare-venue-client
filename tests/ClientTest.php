@@ -1,6 +1,6 @@
 <?php
 
-namespace Gibbo\Foursquare\Client\Tests;
+namespace Gibbo\Foursquare\ClientTests;
 
 use Gibbo\Foursquare\Client\Client;
 use Gibbo\Foursquare\Client\Configuration;
@@ -42,7 +42,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $client = $this->getClient($response);
 
-        $client->getVenue(new Identifier('fake'));
+        $client->getVenue(new Identifier('430d0a00f964a5203e271fe3'));
     }
 
     /**
@@ -89,7 +89,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $client = $this->getClient($response);
 
-        $client->getVenue(new Identifier('fake'));
+        $client->getVenue(new Identifier('430d0a00f964a5203e271fe3'));
     }
 
     /**
@@ -165,7 +165,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetVenue()
     {
-        $body = '{"meta": {"code": 200, "requestId": "fake"},"response": {"venue": {"id": "430d0a00f964a5203e271fe3", "name": "Brooklyn Bridge Park"}}}';
+        $body = '{"meta": {"code": 200, "requestId": "213454"},"response": {"venue": {"id": "430d0a00f964a5203e271fe3", "name": "Brooklyn Bridge Park"}}}';
 
         $description = json_decode($body);
 
@@ -196,7 +196,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
      */
     public function testSearchVenues()
     {
-        $body = '{"meta": {"code": 200, "requestId": "fake"},"response": {"venues": [{"id": "430d0a00f964a5203e271fe3", "name": "Brooklyn Bridge Park"}, {"id": "430d0a00f964a5203e271fe3", "name": "Brooklyn Bridge Park"}]}}';
+        $body = '{"meta": {"code": 200, "requestId": "234234"},"response": {"venues": [{"id": "430d0a00f964a5203e271fe3", "name": "Brooklyn Bridge Park"}, {"id": "430d0a00f964a5203e271fe3", "name": "Brooklyn Bridge Park"}]}}';
 
         $venue = $this->getMockBuilder(Venue::class)
             ->disableOriginalConstructor()
@@ -245,7 +245,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $httpClient->addResponse($response);
 
         return new Client(
-            new Configuration('dummy', 'dummy'),
+            new Configuration('3244few432', '423r234f234'),
             new HttpMethodsClient($httpClient, $this->getMockMessageFactory()),
             $factory
         );

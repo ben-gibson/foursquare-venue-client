@@ -1,6 +1,6 @@
 <?php
 
-namespace Gibbo\Foursquare\Client\Tests\Factory\Photo;
+namespace Gibbo\Foursquare\ClientTests\Factory\Photo;
 
 use Gibbo\Foursquare\Client\Entity\Photo\Group;
 use Gibbo\Foursquare\Client\Factory\Photo\Group as GroupFactory;
@@ -77,8 +77,9 @@ JSON
      * @dataProvider invalidDescriptionProvider
      * @expectedException \Gibbo\Foursquare\Client\Factory\Exception\InvalidDescriptionException
      */
-    public function testCreateWithInvalidDescription(\stdClass $description)
+    public function testCreateWithInvalidDescription(\stdClass $description, $property)
     {
+        $this->expectExceptionMessage("The entity description is missing the mandatory parameter '{$property}'");
         $this->getFactory($this->getMockPhotoFactory())->create($description);
     }
 
@@ -90,7 +91,7 @@ JSON
     public function invalidDescriptionProvider()
     {
         return [
-            [ // NO TYPE
+            'No type' => [
                 json_decode(
                     <<<JSON
                      {
@@ -99,9 +100,10 @@ JSON
                         "items": []
                     }
 JSON
-                )
+                ),
+                'type'
             ],
-            [ // NO NAME
+            'No name' => [
                 json_decode(
                     <<<JSON
                      {
@@ -110,7 +112,8 @@ JSON
                         "items": []
                     }
 JSON
-                )
+                ),
+                'name'
             ],
         ];
     }

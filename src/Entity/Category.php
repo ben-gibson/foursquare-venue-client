@@ -22,7 +22,7 @@ class Category
      *
      * @param Identifier $identifier
      * @param string $name
-     * @param $isPrimary
+     * @param boolean $isPrimary
      */
     public function __construct(Identifier $identifier, $name, $iconUrl, $isPrimary)
     {

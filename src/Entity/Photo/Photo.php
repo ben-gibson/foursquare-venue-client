@@ -35,12 +35,8 @@ class Photo
      * @param string $url
      * @param string $visibility
      */
-    public function __construct(
-        Identifier $identifier,
-        \DateTimeImmutable $createdAt,
-        $url,
-        $visibility
-    ) {
+    public function __construct(Identifier $identifier, \DateTimeImmutable $createdAt, $url, $visibility)
+    {
         Assertion::choice($visibility, static::$visibilityEnum);
         Assertion::url($url);
 

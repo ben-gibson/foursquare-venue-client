@@ -22,9 +22,9 @@ class Contact
      */
     public function __construct($phone = null, $twitterId = null, $facebookId = null)
     {
-        Assertion::nullOrString($phone);
-        Assertion::nullOrString($twitterId);
-        Assertion::nullOrString($facebookId);
+        \Assert\that($phone)->nullOr()->string()->notEmpty();
+        \Assert\that($twitterId)->nullOr()->string()->notEmpty();
+        \Assert\that($facebookId)->nullOr()->string()->notEmpty();
 
         $this->phone      = $phone;
         $this->twitterId  = $twitterId;

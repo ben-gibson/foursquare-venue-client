@@ -1,6 +1,6 @@
 <?php
 
-namespace Gibbo\Foursquare\Client\Tests\Factory\Photo;
+namespace Gibbo\Foursquare\ClientTests\Factory\Photo;
 
 use Gibbo\Foursquare\Client\Entity\Photo\Photo;
 use Gibbo\Foursquare\Client\Factory\Photo\Photo as PhotoFactory;
@@ -152,8 +152,9 @@ JSON
      * @dataProvider invalidDescriptionProvider
      * @expectedException \Gibbo\Foursquare\Client\Factory\Exception\InvalidDescriptionException
      */
-    public function testCreateWithInvalidDescription(\stdClass $description)
+    public function testCreateWithInvalidDescription(\stdClass $description, $property)
     {
+        $this->expectExceptionMessage("The entity description is missing the mandatory parameter '{$property}'");
         $this->getFactory()->create($description);
     }
 
@@ -164,8 +165,9 @@ JSON
      */
     public function invalidDescriptionProvider()
     {
+
         return [
-            [ // NO ID
+            'No id' => [
                 json_decode(
                     <<<JSON
                     {
@@ -191,8 +193,9 @@ JSON
                     }
 JSON
                 ),
+                'id',
             ],
-            [ // NO PREFIX
+            'No prefix' => [
                 json_decode(
                     <<<JSON
                     {
@@ -218,8 +221,9 @@ JSON
                     }
 JSON
                 ),
+                'prefix'
             ],
-            [ // NO SUFFIX
+            'No suffix' => [
                 json_decode(
                     <<<JSON
                     {
@@ -245,8 +249,9 @@ JSON
                     }
 JSON
                 ),
+                'suffix'
             ],
-            [ // NO WIDTH
+            'No width' => [
                 json_decode(
                     <<<JSON
                     {
@@ -272,8 +277,9 @@ JSON
                     }
 JSON
                 ),
+                'width'
             ],
-            [ // NO HEIGHT
+            'No height' => [
                 json_decode(
                     <<<JSON
                     {
@@ -299,6 +305,7 @@ JSON
                     }
 JSON
                 ),
+                'height'
             ],
         ];
     }
