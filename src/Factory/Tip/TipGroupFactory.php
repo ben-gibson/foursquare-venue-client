@@ -2,23 +2,23 @@
 
 namespace Gibbo\Foursquare\Client\Factory\Tip;
 
-use Gibbo\Foursquare\Client\Entity\Tip\Group as GroupEntity;
-use Gibbo\Foursquare\Client\Entity\Tip\Tip as TipEntity;
+use Gibbo\Foursquare\Client\Entity\Tip\TipGroup;
+use Gibbo\Foursquare\Client\Entity\Tip\Tip;
 use Gibbo\Foursquare\Client\Factory\Factory;
 
 /**
  * Creates a tip group from a description.
  */
-class Group extends Factory
+class TipGroupFactory extends Factory
 {
     private $tipFactory;
 
     /**
      * Constructor.
      *
-     * @param Tip $tipFactory
+     * @param TipFactory $tipFactory
      */
-    public function __construct(Tip $tipFactory)
+    public function __construct(TipFactory $tipFactory)
     {
         $this->tipFactory = $tipFactory;
     }
@@ -28,14 +28,14 @@ class Group extends Factory
      *
      * @param \stdClass $description The description.
      *
-     * @return GroupEntity
+     * @return TipGroup
      */
     public function create(\stdClass $description)
     {
         $this->validateMandatoryProperty($description, 'name');
         $this->validateMandatoryProperty($description, 'type');
 
-        return new GroupEntity(
+        return new TipGroup(
             $description->name,
             $description->type,
             $this->getTips($description)
@@ -47,7 +47,7 @@ class Group extends Factory
      *
      * @param \stdClass $description The venue description.
      *
-     * @return TipEntity[]
+     * @return Tip[]
      */
     private function getTips(\stdClass $description)
     {

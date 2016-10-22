@@ -2,30 +2,30 @@
 
 namespace Gibbo\Foursquare\ClientTests\Factory\Photo;
 
-use Gibbo\Foursquare\Client\Entity\Photo\Group;
-use Gibbo\Foursquare\Client\Factory\Photo\Group as GroupFactory;
-use Gibbo\Foursquare\Client\Factory\Photo\Photo as PhotoFactory;
+use Gibbo\Foursquare\Client\Entity\Photo\PhotoGroup;
+use Gibbo\Foursquare\Client\Factory\Photo\PhotoGroupFactory;
+use Gibbo\Foursquare\Client\Factory\Photo\PhotoFactory as PhotoFactory;
 use Gibbo\Foursquare\Client\Entity\Photo\Photo;
 
-class GroupTest extends \PHPUnit_Framework_TestCase
+class GroupFactoryTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Test the construction.
      */
     public function testConstruct()
     {
-        $this->assertInstanceOf(GroupFactory::class, $this->getFactory($this->getMockPhotoFactory()));
+        $this->assertInstanceOf(PhotoGroupFactory::class, $this->getFactory($this->getMockPhotoFactory()));
     }
 
     /**
      * Test the creation from a description.
      *
-     * @param \stdClass $description
-     * @param Group $expected
+     * @param \stdClass  $description
+     * @param PhotoGroup $expected
      *
      * @dataProvider validDescriptionProvider
      */
-    public function testCreate(\stdClass $description, Group $expected)
+    public function testCreate(\stdClass $description, PhotoGroup $expected)
     {
         $factory = $this->getFactory($this->getMockPhotoFactory());
 
@@ -51,7 +51,7 @@ class GroupTest extends \PHPUnit_Framework_TestCase
                     }
 JSON
                 ),
-                new Group('Venue photos', 'venue', [$this->getMockPhoto(), $this->getMockPhoto()])
+                new PhotoGroup('Venue photos', 'venue', [$this->getMockPhoto(), $this->getMockPhoto()])
             ],
             [
                 json_decode(
@@ -64,7 +64,7 @@ JSON
                     }
 JSON
                 ),
-                new Group('Venue photos', 'venue', [])
+                new PhotoGroup('Venue photos', 'venue', [])
             ],
         ];
     }
@@ -123,11 +123,11 @@ JSON
      *
      * @param Photo $photoFactory
      *
-     * @return GroupFactory
+     * @return PhotoGroupFactory
      */
     private function getFactory(PhotoFactory $photoFactory)
     {
-        return new GroupFactory($photoFactory);
+        return new PhotoGroupFactory($photoFactory);
     }
 
     /**

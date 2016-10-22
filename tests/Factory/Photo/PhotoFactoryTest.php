@@ -3,10 +3,10 @@
 namespace Gibbo\Foursquare\ClientTests\Factory\Photo;
 
 use Gibbo\Foursquare\Client\Entity\Photo\Photo;
-use Gibbo\Foursquare\Client\Factory\Photo\Photo as PhotoFactory;
+use Gibbo\Foursquare\Client\Factory\Photo\PhotoFactory;
 use Gibbo\Foursquare\Client\Identifier;
 
-class PhotoTest extends \PHPUnit_Framework_TestCase
+class PhotoFactoryTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Test the construction.

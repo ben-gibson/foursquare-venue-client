@@ -2,30 +2,30 @@
 
 namespace Gibbo\Foursquare\ClientTests\Factory\Tip;
 
-use Gibbo\Foursquare\Client\Entity\Tip\Group;
-use Gibbo\Foursquare\Client\Factory\Tip\Group as GroupFactory;
-use Gibbo\Foursquare\Client\Factory\Tip\Tip as TipFactory;
+use Gibbo\Foursquare\Client\Entity\Tip\TipGroup;
+use Gibbo\Foursquare\Client\Factory\Tip\TipGroupFactory;
+use Gibbo\Foursquare\Client\Factory\Tip\TipFactory as TipFactory;
 use Gibbo\Foursquare\Client\Entity\Tip\Tip;
 
-class GroupTest extends \PHPUnit_Framework_TestCase
+class GroupFactoryTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Test the construction.
      */
     public function testConstruct()
     {
-        $this->assertInstanceOf(GroupFactory::class, $this->getFactory($this->getMockTipFactory()));
+        $this->assertInstanceOf(TipGroupFactory::class, $this->getFactory($this->getMockTipFactory()));
     }
 
     /**
      * Test the creation from a description.
      *
      * @param \stdClass $description
-     * @param Group $expected
+     * @param TipGroup  $expected
      *
      * @dataProvider validDescriptionProvider
      */
-    public function testCreate(\stdClass $description, Group $expected)
+    public function testCreate(\stdClass $description, TipGroup $expected)
     {
         $factory = $this->getFactory($this->getMockTipFactory());
 
@@ -51,7 +51,7 @@ class GroupTest extends \PHPUnit_Framework_TestCase
                     }
 JSON
                 ),
-                new Group('All tips', 'others', [$this->getMockTip(), $this->getMockTip()])
+                new TipGroup('All tips', 'others', [$this->getMockTip(), $this->getMockTip()])
             ],
             [
                 json_decode(
@@ -64,7 +64,7 @@ JSON
                     }
 JSON
                 ),
-                new Group('All tips', 'others', [])
+                new TipGroup('All tips', 'others', [])
             ],
         ];
     }
@@ -123,11 +123,11 @@ JSON
      *
      * @param TipFactory $tipFactory
      *
-     * @return GroupFactory
+     * @return TipGroupFactory
      */
     private function getFactory(TipFactory $tipFactory)
     {
-        return new GroupFactory($tipFactory);
+        return new TipGroupFactory($tipFactory);
     }
 
     /**

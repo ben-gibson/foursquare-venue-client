@@ -3,10 +3,10 @@
 namespace Gibbo\Foursquare\ClientTests\Factory\Tip;
 
 use Gibbo\Foursquare\Client\Entity\Tip\Tip;
-use Gibbo\Foursquare\Client\Factory\Tip\Tip as TipFactory;
+use Gibbo\Foursquare\Client\Factory\Tip\TipFactory;
 use Gibbo\Foursquare\Client\Identifier;
 
-class TipTest extends \PHPUnit_Framework_TestCase
+class TipFactoryTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Test the construction.

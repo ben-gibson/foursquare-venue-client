@@ -8,7 +8,7 @@ use Gibbo\Foursquare\Client\Identifier;
 /**
  * Creates a category from a description.
  */
-class Category extends Factory
+class CategoryFactory extends Factory
 {
     /**
      * Create a category from a description.

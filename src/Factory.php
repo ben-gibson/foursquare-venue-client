@@ -2,17 +2,17 @@
 
 namespace Gibbo\Foursquare\Client;
 
-use Gibbo\Foursquare\Client\Factory\Venue\Detail;
+use Gibbo\Foursquare\Client\Factory\Venue\DetailFactory;
 use Http\Discovery\HttpClientDiscovery;
 use Http\Discovery\MessageFactoryDiscovery;
-use Gibbo\Foursquare\Client\Factory\Category;
-use Gibbo\Foursquare\Client\Factory\Contact;
-use Gibbo\Foursquare\Client\Factory\Location;
-use Gibbo\Foursquare\Client\Factory\Photo\Group as PhotoGroup;
-use Gibbo\Foursquare\Client\Factory\Photo\Photo;
-use Gibbo\Foursquare\Client\Factory\Tip\Tip;
-use Gibbo\Foursquare\Client\Factory\Tip\Group as TipGroup;
-use Gibbo\Foursquare\Client\Factory\Venue\Venue;
+use Gibbo\Foursquare\Client\Factory\CategoryFactory;
+use Gibbo\Foursquare\Client\Factory\ContactFactory;
+use Gibbo\Foursquare\Client\Factory\LocationFactory;
+use Gibbo\Foursquare\Client\Factory\Photo\PhotoGroupFactory;
+use Gibbo\Foursquare\Client\Factory\Photo\PhotoFactory;
+use Gibbo\Foursquare\Client\Factory\Tip\TipFactory;
+use Gibbo\Foursquare\Client\Factory\Tip\TipGroupFactory;
+use Gibbo\Foursquare\Client\Factory\Venue\VenueFactory;
 use Http\Client\Common\HttpMethodsClient;
 
 /**
@@ -35,17 +35,17 @@ class Factory
     /**
      * Get the venue factory.
      *
-     * @return Venue
+     * @return VenueFactory
      */
     private static function getVenueFactory()
     {
-        return new Venue(
-            new Detail(new Photo()),
-            new Category(),
-            new Contact(),
-            new Location(),
-            new TipGroup(new Tip()),
-            new PhotoGroup(new Photo())
+        return new VenueFactory(
+            new DetailFactory(new PhotoFactory()),
+            new CategoryFactory(),
+            new ContactFactory(),
+            new LocationFactory(),
+            new TipGroupFactory(new TipFactory()),
+            new PhotoGroupFactory(new PhotoFactory())
         );
     }
 }

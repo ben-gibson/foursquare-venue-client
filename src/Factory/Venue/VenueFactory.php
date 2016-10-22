@@ -2,14 +2,14 @@
 
 namespace Gibbo\Foursquare\Client\Factory\Venue;
 
-use Gibbo\Foursquare\Client\Entity\Tip\Group as TipGroupEntity;
-use Gibbo\Foursquare\Client\Entity\Photo\Group as PhotoGroupEntity;
-use Gibbo\Foursquare\Client\Entity\Category as CategoryEntity;
-use Gibbo\Foursquare\Client\Entity\Venue\Venue as VenueEntity;
-use Gibbo\Foursquare\Client\Factory\Category;
-use Gibbo\Foursquare\Client\Factory\Contact;
+use Gibbo\Foursquare\Client\Entity\Tip\TipGroup;
+use Gibbo\Foursquare\Client\Entity\Photo\PhotoGroup;
+use Gibbo\Foursquare\Client\Entity\Category;
+use Gibbo\Foursquare\Client\Entity\Venue\Venue;
+use Gibbo\Foursquare\Client\Factory\CategoryFactory;
+use Gibbo\Foursquare\Client\Factory\ContactFactory;
 use Gibbo\Foursquare\Client\Factory\Factory;
-use Gibbo\Foursquare\Client\Factory\Location;
+use Gibbo\Foursquare\Client\Factory\LocationFactory;
 use Gibbo\Foursquare\Client\Factory\Tip;
 use Gibbo\Foursquare\Client\Factory\Photo;
 use Gibbo\Foursquare\Client\Identifier;
@@ -17,7 +17,7 @@ use Gibbo\Foursquare\Client\Identifier;
 /**
  * Creates venues from a description.
  */
-class Venue extends Factory
+class VenueFactory extends Factory
 {
     private $detailFactory;
     private $categoryFactory;
@@ -29,20 +29,20 @@ class Venue extends Factory
     /**
      * Constructor.
      *
-     * @param Detail $detailFactory
-     * @param Category $categoryFactory
-     * @param Contact $contactFactory
-     * @param Location $locationFactory
-     * @param Tip\Group $tipGroupFactory
-     * @param Photo\Group $photoGroupFactory
+     * @param DetailFactory           $detailFactory
+     * @param CategoryFactory         $categoryFactory
+     * @param ContactFactory          $contactFactory
+     * @param LocationFactory         $locationFactory
+     * @param Tip\TipGroupFactory     $tipGroupFactory
+     * @param Photo\PhotoGroupFactory $photoGroupFactory
      */
     public function __construct(
-        Detail $detailFactory,
-        Category $categoryFactory,
-        Contact $contactFactory,
-        Location $locationFactory,
-        Tip\Group $tipGroupFactory,
-        Photo\Group $photoGroupFactory
+        DetailFactory $detailFactory,
+        CategoryFactory $categoryFactory,
+        ContactFactory $contactFactory,
+        LocationFactory $locationFactory,
+        Tip\TipGroupFactory $tipGroupFactory,
+        Photo\PhotoGroupFactory $photoGroupFactory
     ) {
         $this->detailFactory     = $detailFactory;
         $this->categoryFactory   = $categoryFactory;
@@ -58,7 +58,7 @@ class Venue extends Factory
      *
      * @param \stdClass $description The venue description.
      *
-     * @return VenueEntity
+     * @return Venue
      */
     public function create(\stdClass $description)
     {
@@ -67,7 +67,7 @@ class Venue extends Factory
         $this->validateMandatoryProperty($description, 'contact');
         $this->validateMandatoryProperty($description, 'location');
 
-        return new VenueEntity(
+        return new Venue(
             new Identifier($description->id),
             $description->name,
             $this->getCategories($description),
@@ -84,7 +84,7 @@ class Venue extends Factory
      *
      * @param \stdClass $description The venue description.
      *
-     * @return CategoryEntity[]
+     * @return Category[]
      */
     private function getCategories(\stdClass $description)
     {
@@ -105,7 +105,7 @@ class Venue extends Factory
      *
      * @param \stdClass $description The venue description.
      *
-     * @return TipGroupEntity[]
+     * @return TipGroup[]
      */
     private function getTipGroups(\stdClass $description)
     {
@@ -126,7 +126,7 @@ class Venue extends Factory
      *
      * @param \stdClass $description The venue description.
      *
-     * @return PhotoGroupEntity[]
+     * @return PhotoGroup[]
      */
     private function getPhotoGroups(\stdClass $description)
     {

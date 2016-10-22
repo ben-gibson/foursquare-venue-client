@@ -8,7 +8,7 @@ use Gibbo\Foursquare\Client\Entity\Location as LocationEntity;
 /**
  * Creates a location from a description.
  */
-class Location extends Factory
+class LocationFactory extends Factory
 {
     /**
      * Create a location from a description.

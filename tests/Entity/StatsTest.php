@@ -3,7 +3,6 @@
 namespace Gibbo\Foursquare\ClientTests\Entity;
 
 use Gibbo\Foursquare\Client\Entity\Stats;
-use Gibbo\Foursquare\Client\Identifier;
 
 /**
  * Tests the stats entity.

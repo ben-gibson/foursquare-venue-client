@@ -2,8 +2,6 @@
 
 namespace Gibbo\Foursquare\Client\Entity;
 
-use Assert\Assertion;
-
 /**
  * Represents venue statistics.
  */

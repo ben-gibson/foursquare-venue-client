@@ -4,9 +4,9 @@ namespace Gibbo\Foursquare\ClientTests\Factory;
 
 use Gibbo\Foursquare\Client\Entity\Coordinates;
 use Gibbo\Foursquare\Client\Entity\Location;
-use Gibbo\Foursquare\Client\Factory\Location as LocationFactory;
+use Gibbo\Foursquare\Client\Factory\LocationFactory;
 
-class LocationTest extends \PHPUnit_Framework_TestCase
+class LocationFactoryTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Test the construction.
