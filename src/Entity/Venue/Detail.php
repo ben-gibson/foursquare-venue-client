@@ -48,7 +48,7 @@ class Detail
         Assertion::isArray($tags);
         Assertion::nullOrInteger($likes);
         Assertion::nullOrFloat($rating);
-        Assertion::nullOrUrl($url);
+        Assertion::nullOrString($url);
         Assertion::nullOrInteger($hereNow);
 
         $this->verified    = $verified;
