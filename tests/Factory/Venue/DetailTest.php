@@ -107,7 +107,7 @@ JSON
                     ],
                     34,
                     new \DateTimeZone('America/New_York')
-                )
+                ),
             ],
             [
                 json_decode(
@@ -139,7 +139,40 @@ JSON
                     [],
                     null,
                     null
-                )
+                ),
+            ],
+            [
+                json_decode(
+                    <<<JSON
+                    {
+                         "url": "www.parks.com",
+                         "verified": false,
+                         "hereNow": {
+                            "count": 3,
+                            "summary": "3 people are here",
+                            "groups": [
+                              {
+                                "type": "others",
+                                "name": "Other people here",
+                                "count": 3,
+                                "items": []
+                              }
+                            ]
+                        }
+                    }
+JSON
+                ),
+                new Detail(
+                    false,
+                    null,
+                    null,
+                    null,
+                    'www.parks.com',
+                    3,
+                    [],
+                    null,
+                    null
+                ),
             ],
         ];
     }
@@ -218,7 +251,7 @@ JSON
                     }
 JSON
                 ),
-                'verified'
+                'verified',
             ],
         ];
     }
