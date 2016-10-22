@@ -3,11 +3,11 @@
 namespace Gibbo\Foursquare\ClientTests\Factory\Venue;
 
 use Gibbo\Foursquare\Client\Entity\Venue\Detail;
-use Gibbo\Foursquare\Client\Factory\Venue\Detail as DetailFactory;
-use Gibbo\Foursquare\Client\Factory\Photo\Photo as PhotoFactory;
+use Gibbo\Foursquare\Client\Factory\Venue\DetailFactory;
+use Gibbo\Foursquare\Client\Factory\Photo\PhotoFactory;
 use Gibbo\Foursquare\Client\Entity\Photo\Photo;
 
-class DetailTest extends \PHPUnit_Framework_TestCase
+class DetailFactoryTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Test the construction.
@@ -21,7 +21,7 @@ class DetailTest extends \PHPUnit_Framework_TestCase
      * Test the creation from a description.
      *
      * @param \stdClass $description
-     * @param Detail $expected
+     * @param Detail    $expected
      *
      * @dataProvider validDescriptionProvider
      */

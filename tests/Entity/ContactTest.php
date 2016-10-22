@@ -3,7 +3,6 @@
 namespace Gibbo\Foursquare\ClientTests\Entity;
 
 use Gibbo\Foursquare\Client\Entity\Contact;
-use Gibbo\Foursquare\ClientTests\Traits\InvalidStringProvider;
 
 /**
  * Tests the contact entity.

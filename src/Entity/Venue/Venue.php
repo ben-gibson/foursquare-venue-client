@@ -29,14 +29,14 @@ class Venue
     /**
      * Constructor.
      *
-     * @param Identifier $identifier
-     * @param string $name
-     * @param Category[] $categories
-     * @param Tip\Group[] $tipGroups
-     * @param Photo\Group[] $photosGroups
-     * @param Contact $contact
-     * @param Location $location
-     * @param Detail $details
+     * @param Identifier         $identifier
+     * @param string             $name
+     * @param Category[]         $categories
+     * @param Tip\TipGroup[]     $tipGroups
+     * @param Photo\PhotoGroup[] $photosGroups
+     * @param Contact            $contact
+     * @param Location           $location
+     * @param Detail             $details
      */
     public function __construct(
         Identifier $identifier,
@@ -51,8 +51,8 @@ class Venue
         \Assert\that($name)->string()->notEmpty();
 
         Assertion::allIsInstanceOf($categories, Category::class);
-        Assertion::allIsInstanceOf($tipGroups, Tip\Group::class);
-        Assertion::allIsInstanceOf($photosGroups, Photo\Group::class);
+        Assertion::allIsInstanceOf($tipGroups, Tip\TipGroup::class);
+        Assertion::allIsInstanceOf($photosGroups, Photo\PhotoGroup::class);
 
         $this->identifier  = $identifier;
         $this->name        = $name;
@@ -117,7 +117,7 @@ class Venue
     /**
      * Get tips.
      *
-     * @return Tip\Group[]
+     * @return Tip\TipGroup[]
      */
     public function getTipGroups()
     {
@@ -127,7 +127,7 @@ class Venue
     /**
      * Get photos groups.
      *
-     * @return Photo\Group[]
+     * @return Photo\PhotoGroup[]
      */
     public function getPhotoGroups()
     {

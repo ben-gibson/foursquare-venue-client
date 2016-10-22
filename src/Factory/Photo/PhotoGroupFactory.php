@@ -2,23 +2,23 @@
 
 namespace Gibbo\Foursquare\Client\Factory\Photo;
 
-use Gibbo\Foursquare\Client\Entity\Photo\Group as GroupEntity;
-use Gibbo\Foursquare\Client\Entity\Photo\Photo as PhotoEntity;
+use Gibbo\Foursquare\Client\Entity\Photo\PhotoGroup;
+use Gibbo\Foursquare\Client\Entity\Photo\Photo;
 use Gibbo\Foursquare\Client\Factory\Factory;
 
 /**
  * Creates a photo group from a description.
  */
-class Group extends Factory
+class PhotoGroupFactory extends Factory
 {
     private $photoFactory;
 
     /**
      * Constructor.
      *
-     * @param Photo $photoFactory
+     * @param PhotoFactory $photoFactory
      */
-    public function __construct(Photo $photoFactory)
+    public function __construct(PhotoFactory $photoFactory)
     {
         $this->photoFactory = $photoFactory;
     }
@@ -28,14 +28,14 @@ class Group extends Factory
      *
      * @param \stdClass $description The description.
      *
-     * @return GroupEntity
+     * @return PhotoGroup
      */
     public function create(\stdClass $description)
     {
         $this->validateMandatoryProperty($description, 'name');
         $this->validateMandatoryProperty($description, 'type');
 
-        return new GroupEntity(
+        return new PhotoGroup(
             $description->name,
             $description->type,
             $this->getPhotos($description)
@@ -47,7 +47,7 @@ class Group extends Factory
      *
      * @param \stdClass $description The description.
      *
-     * @return PhotoEntity[]
+     * @return Photo[]
      */
     private function getPhotos(\stdClass $description)
     {

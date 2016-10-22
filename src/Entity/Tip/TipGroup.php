@@ -10,7 +10,7 @@ use Gibbo\Foursquare\Client\Entity\Traits\CanBeIterated;
 /**
  * Represents a tip group.
  */
-class Group implements \Countable, \Iterator, \ArrayAccess
+class TipGroup implements \Countable, \Iterator, \ArrayAccess
 {
     use CanBeCounted;
     use CanBeIterated;

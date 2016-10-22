@@ -5,7 +5,7 @@ namespace Gibbo\Foursquare\ClientTests;
 use Gibbo\Foursquare\Client\Client;
 use Gibbo\Foursquare\Client\Configuration;
 use Gibbo\Foursquare\Client\Exception\InvalidResponseException;
-use Gibbo\Foursquare\Client\Factory\Venue\Venue as VenueFactory;
+use Gibbo\Foursquare\Client\Factory\Venue\VenueFactory;
 use Gibbo\Foursquare\Client\Entity\Venue\Venue;
 use Gibbo\Foursquare\Client\Identifier;
 use Gibbo\Foursquare\Client\Options\Search;

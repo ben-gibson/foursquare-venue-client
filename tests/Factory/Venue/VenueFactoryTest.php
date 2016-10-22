@@ -5,20 +5,20 @@ namespace Gibbo\Foursquare\ClientTests\Factory\Venue;
 use Gibbo\Foursquare\Client\Entity\Category;
 use Gibbo\Foursquare\Client\Entity\Contact;
 use Gibbo\Foursquare\Client\Entity\Location;
-use Gibbo\Foursquare\Client\Entity\Photo\Group as PhotoGroup;
-use Gibbo\Foursquare\Client\Entity\Tip\Group as TipGroup;
+use Gibbo\Foursquare\Client\Entity\Photo\PhotoGroup;
+use Gibbo\Foursquare\Client\Entity\Tip\TipGroup;
 use Gibbo\Foursquare\Client\Entity\Venue\Detail;
 use Gibbo\Foursquare\Client\Entity\Venue\Venue;
-use Gibbo\Foursquare\Client\Factory\Venue\Venue as VenueFactory;
-use Gibbo\Foursquare\Client\Factory\Venue\Detail as DetailFactory;
-use Gibbo\Foursquare\Client\Factory\Photo\Group as PhotoGroupFactory;
-use Gibbo\Foursquare\Client\Factory\Tip\Group as TipGroupFactory;
-use Gibbo\Foursquare\Client\Factory\Location as LocationFactory;
-use Gibbo\Foursquare\Client\Factory\Category as CategoryFactory;
-use Gibbo\Foursquare\Client\Factory\Contact as ContactFactory;
+use Gibbo\Foursquare\Client\Factory\Venue\VenueFactory;
+use Gibbo\Foursquare\Client\Factory\Venue\DetailFactory;
+use Gibbo\Foursquare\Client\Factory\Photo\PhotoGroupFactory;
+use Gibbo\Foursquare\Client\Factory\Tip\TipGroupFactory;
+use Gibbo\Foursquare\Client\Factory\LocationFactory;
+use Gibbo\Foursquare\Client\Factory\CategoryFactory;
+use Gibbo\Foursquare\Client\Factory\ContactFactory;
 use Gibbo\Foursquare\Client\Identifier;
 
-class VenueTest extends \PHPUnit_Framework_TestCase
+class VenueFactoryTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Test the construction.

@@ -10,7 +10,7 @@ use Gibbo\Foursquare\Client\Entity\Traits\CanBeIterated;
 /**
  * Represents a photo group.
  */
-class Group implements \Countable, \Iterator, \ArrayAccess
+class PhotoGroup implements \Countable, \Iterator, \ArrayAccess
 {
     use CanBeCounted;
     use CanBeIterated;

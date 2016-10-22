@@ -3,12 +3,12 @@
 namespace Gibbo\Foursquare\ClientTests\Factory;
 
 use Gibbo\Foursquare\Client\Entity\Contact;
-use Gibbo\Foursquare\Client\Factory\Contact as ContactFactory;
+use Gibbo\Foursquare\Client\Factory\ContactFactory;
 
 /**
  * Test the contact factory.
  */
-class ContactTest extends \PHPUnit_Framework_TestCase
+class ContactFactoryTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Test the construction.

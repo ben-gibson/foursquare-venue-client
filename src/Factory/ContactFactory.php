@@ -7,7 +7,7 @@ use Gibbo\Foursquare\Client\Entity\Contact as ContactEntity;
 /**
  * Creates contact information from a description.
  */
-class Contact extends Factory
+class ContactFactory extends Factory
 {
     /**
      * Create contact information from a description.

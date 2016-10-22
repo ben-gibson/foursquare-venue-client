@@ -3,10 +3,10 @@
 namespace Gibbo\Foursquare\ClientTests\Factory;
 
 use Gibbo\Foursquare\Client\Entity\Category;
-use Gibbo\Foursquare\Client\Factory\Category as CategoryFactory;
+use Gibbo\Foursquare\Client\Factory\CategoryFactory;
 use Gibbo\Foursquare\Client\Identifier;
 
-class CategoryTest extends \PHPUnit_Framework_TestCase
+class CategoryFactoryTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Test the construction.

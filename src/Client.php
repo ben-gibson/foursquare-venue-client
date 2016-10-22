@@ -6,7 +6,7 @@ use Gibbo\Foursquare\Client\Exception\ClientErrorException;
 use Gibbo\Foursquare\Client\Exception\InvalidResponseException;
 use Gibbo\Foursquare\Client\Entity\Venue\Venue;
 use Gibbo\Foursquare\Client\Exception\ServerErrorException;
-use Gibbo\Foursquare\Client\Factory\Venue\Venue as VenueFactory;
+use Gibbo\Foursquare\Client\Factory\Venue\VenueFactory;
 use Gibbo\Foursquare\Client\Options\Explore;
 use Gibbo\Foursquare\Client\Options\Search;
 use Gibbo\Foursquare\Client\Options\Trending;

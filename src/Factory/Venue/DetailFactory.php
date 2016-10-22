@@ -2,25 +2,24 @@
 
 namespace Gibbo\Foursquare\Client\Factory\Venue;
 
-use Gibbo\Foursquare\Client\Entity\Venue as VenueEntity;
+use Gibbo\Foursquare\Client\Entity\Photo\Photo;
 use Gibbo\Foursquare\Client\Factory\Factory;
-use Gibbo\Foursquare\Client\Factory\Photo\Photo as PhotoEntity;
-use Gibbo\Foursquare\Client\Factory\Photo\Photo;
-use Gibbo\Foursquare\Client\Entity\Venue\Detail as DetailEntity;
+use Gibbo\Foursquare\Client\Factory\Photo\PhotoFactory;
+use Gibbo\Foursquare\Client\Entity\Venue\Detail;
 
 /**
  * Creates venue details from a description.
  */
-class Detail extends Factory
+class DetailFactory extends Factory
 {
     private $photoFactory;
 
     /**
      * Constructor.
      *
-     * @param Photo $photoFactory
+     * @param PhotoFactory $photoFactory
      */
-    public function __construct(Photo $photoFactory)
+    public function __construct(PhotoFactory $photoFactory)
     {
         $this->photoFactory = $photoFactory;
     }
@@ -30,7 +29,7 @@ class Detail extends Factory
      *
      * @param \stdClass $description The venue description.
      *
-     * @return DetailEntity
+     * @return Detail
      */
     public function create(\stdClass $description)
     {
@@ -45,7 +44,7 @@ class Detail extends Factory
         $this->parseOptionalParameter($description, 'tags');
         $this->parseOptionalParameter($description, 'likes');
 
-        return new DetailEntity(
+        return new Detail(
             $description->verified,
             $this->getCreatedAt($description),
             $this->getBestPhoto($description),
@@ -79,7 +78,7 @@ class Detail extends Factory
      *
      * @param \stdClass $description The venue description.
      *
-     * @return PhotoEntity|null
+     * @return Photo|null
      */
     private function getBestPhoto(\stdClass $description)
     {

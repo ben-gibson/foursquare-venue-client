@@ -2,21 +2,21 @@
 
 namespace Gibbo\Foursquare\Client\Factory\Tip;
 
-use Gibbo\Foursquare\Client\Entity\Tip\Tip as TipEntity;
+use Gibbo\Foursquare\Client\Entity\Tip\Tip;
 use Gibbo\Foursquare\Client\Factory\Factory;
 use Gibbo\Foursquare\Client\Identifier;
 
 /**
  * Creates a tip from a description.
  */
-class Tip extends Factory
+class TipFactory extends Factory
 {
     /**
      * Create a tip from a description.
      *
      * @param \stdClass $description The description.
      *
-     * @return TipEntity
+     * @return Tip
      */
     public function create(\stdClass $description)
     {
@@ -26,7 +26,7 @@ class Tip extends Factory
         $this->validateMandatoryProperty($description, 'agreeCount');
         $this->validateMandatoryProperty($description, 'disagreeCount');
 
-        return new TipEntity(
+        return new Tip(
             new Identifier($description->id),
             $description->text,
             $description->type,
