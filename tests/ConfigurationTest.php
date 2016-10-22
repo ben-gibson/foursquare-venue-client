@@ -61,7 +61,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
             [''],
             [123],
             ['api.com'],
-            ['http://api']
+            ['www.api.com'],
         ];
     }
 
