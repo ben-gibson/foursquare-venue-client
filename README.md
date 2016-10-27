@@ -15,8 +15,8 @@ clients including `Guzzle`, `Buzz`, and `Curl`.
 Use composer to install this library and your preferred `HTTP` client.
 
 ``` bash
-$ composer require ben-gibson/foursquare-venue-client
 $ composer require php-http/guzzle6-adapter
+$ composer require ben-gibson/foursquare-venue-client
 ```
 
 ## Usage
