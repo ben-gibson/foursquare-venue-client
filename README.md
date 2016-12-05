@@ -1,5 +1,7 @@
 # Foursquare Venue API Client
 
+[![Join the chat at https://gitter.im/foursquare-venue-client/Lobby](https://badges.gitter.im/foursquare-venue-client/Lobby.svg)](https://gitter.im/foursquare-venue-client/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
 [![Build Status][ico-travis]][link-travis]
