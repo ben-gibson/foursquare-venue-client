@@ -4,6 +4,7 @@ namespace Gibbo\Foursquare\ClientTests\Factory;
 
 use Gibbo\Foursquare\Client\Entity\Coordinates;
 use Gibbo\Foursquare\Client\Entity\Location;
+use Gibbo\Foursquare\Client\Factory\Description;
 use Gibbo\Foursquare\Client\Factory\LocationFactory;
 
 class LocationFactoryTest extends \PHPUnit_Framework_TestCase
@@ -28,7 +29,7 @@ class LocationFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $factory = $this->getFactory();
 
-        $this->assertEquals($expected, $factory->create($description));
+        $this->assertEquals($expected, $factory->create(new Description($description)));
     }
 
     /**

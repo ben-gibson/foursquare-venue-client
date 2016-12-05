@@ -4,12 +4,12 @@ namespace Gibbo\Foursquare\Client\Factory\Photo;
 
 use Gibbo\Foursquare\Client\Entity\Photo\PhotoGroup;
 use Gibbo\Foursquare\Client\Entity\Photo\Photo;
-use Gibbo\Foursquare\Client\Factory\Factory;
+use Gibbo\Foursquare\Client\Factory\Description;
 
 /**
  * Creates a photo group from a description.
  */
-class PhotoGroupFactory extends Factory
+class PhotoGroupFactory
 {
     private $photoFactory;
 
@@ -26,18 +26,15 @@ class PhotoGroupFactory extends Factory
     /**
      * Create a tip group from a description.
      *
-     * @param \stdClass $description The description.
+     * @param Description $description The photo group description.
      *
      * @return PhotoGroup
      */
-    public function create(\stdClass $description)
+    public function create(Description $description)
     {
-        $this->validateMandatoryProperty($description, 'name');
-        $this->validateMandatoryProperty($description, 'type');
-
         return new PhotoGroup(
-            $description->name,
-            $description->type,
+            $description->getMandatoryProperty('name'),
+            $description->getMandatoryProperty('type'),
             $this->getPhotos($description)
         );
     }
@@ -45,21 +42,17 @@ class PhotoGroupFactory extends Factory
     /**
      * Get the venue photos.
      *
-     * @param \stdClass $description The description.
+     * @param Description $description The photo group description.
      *
      * @return Photo[]
      */
-    private function getPhotos(\stdClass $description)
+    private function getPhotos(Description $description)
     {
-        if (isset($description->items) === false) {
-            return [];
-        }
-
         return array_map(
             function (\stdClass $photoDescription) {
-                return $this->photoFactory->create($photoDescription);
+                return $this->photoFactory->create(new Description($photoDescription));
             },
-            $description->items
+            $description->getOptionalProperty('items', [])
         );
     }
 }

@@ -8,14 +8,14 @@ namespace Gibbo\Foursquare\Client\Factory\Exception;
 class InvalidDescriptionException extends \RuntimeException
 {
     /**
-     * Missing
+     * Thrown when a mandatory property is missing from an entity description.
      *
-     * @param string $parameter The missing parameter.
+     * @param string $property The missing property.
      *
      * @return static
      */
-    public static function missingMandatoryParameter($parameter)
+    public static function missingMandatoryProperty($property)
     {
-        return new static(sprintf("The entity description is missing the mandatory parameter '%s'", $parameter));
+        return new static(sprintf("The entity description is missing the mandatory property '%s'", $property));
     }
 }

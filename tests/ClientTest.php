@@ -5,6 +5,7 @@ namespace Gibbo\Foursquare\ClientTests;
 use Gibbo\Foursquare\Client\Client;
 use Gibbo\Foursquare\Client\Configuration;
 use Gibbo\Foursquare\Client\Exception\InvalidResponseException;
+use Gibbo\Foursquare\Client\Factory\Description;
 use Gibbo\Foursquare\Client\Factory\Venue\VenueFactory;
 use Gibbo\Foursquare\Client\Entity\Venue\Venue;
 use Gibbo\Foursquare\Client\Identifier;
@@ -175,9 +176,11 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         $venueFactory = $this->getMockVenueFactory();
 
+        $description = new Description($description->response->venue);
+
         $venueFactory->expects($this->once())
             ->method('create')
-            ->with($this->equalTo($description->response->venue))
+            ->with($this->equalTo($description))
             ->willReturn($venue);
 
         $client = $this->getClient($this->getMockResponse($body), $venueFactory);

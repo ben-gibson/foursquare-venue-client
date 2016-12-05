@@ -4,6 +4,7 @@ namespace Gibbo\Foursquare\ClientTests\Factory;
 
 use Gibbo\Foursquare\Client\Entity\Contact;
 use Gibbo\Foursquare\Client\Factory\ContactFactory;
+use Gibbo\Foursquare\Client\Factory\Description;
 
 /**
  * Test the contact factory.
@@ -30,7 +31,7 @@ class ContactFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $factory = $this->getFactory();
 
-        $this->assertEquals($expected, $factory->create($description));
+        $this->assertEquals($expected, $factory->create(new Description($description)));
     }
 
     /**

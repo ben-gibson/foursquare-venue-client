@@ -8,39 +8,36 @@ use Gibbo\Foursquare\Client\Identifier;
 /**
  * Creates a category from a description.
  */
-class CategoryFactory extends Factory
+class CategoryFactory
 {
     /**
      * Create a category from a description.
      *
-     * @param \stdClass $description The description.
+     * @param Description $description The category description.
      *
      * @return CategoryEntity
      */
-    public function create(\stdClass $description)
+    public function create(Description $description)
     {
-        $this->validateMandatoryProperty($description, 'id');
-        $this->validateMandatoryProperty($description, 'name');
-
         return new CategoryEntity(
-            new Identifier($description->id),
-            $description->name,
+            new Identifier($description->getMandatoryProperty('id')),
+            $description->getMandatoryProperty('name'),
             $this->getIconUrl($description),
-            (isset($description->primary))
+            (bool)$description->getOptionalProperty('primary', false)
         );
     }
 
     /**
      * Get the icon url.
      *
-     * @param \stdClass $description The description.
+     * @param Description $description The category description.
      *
      * @return string
      */
-    private function getIconUrl(\stdClass $description)
+    private function getIconUrl(Description $description)
     {
-        $this->validateMandatoryProperty($description, 'icon');
+        $icon = $description->getMandatoryProperty('icon');
 
-        return sprintf('%s%s%s', $description->icon->prefix, '88', $description->icon->suffix);
+        return sprintf('%s%s%s', $icon->getMandatoryProperty('prefix'), '88', $icon->getMandatoryProperty('suffix'));
     }
 }
