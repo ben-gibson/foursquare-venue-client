@@ -7,21 +7,21 @@ use Gibbo\Foursquare\Client\Entity\Contact as ContactEntity;
 /**
  * Creates contact information from a description.
  */
-class ContactFactory extends Factory
+class ContactFactory
 {
     /**
      * Create contact information from a description.
      *
-     * @param \stdClass $description The description.
+     * @param Description $description The contact description.
      *
      * @return ContactEntity
      */
-    public function create(\stdClass $description)
+    public function create(Description $description)
     {
-        $this->parseOptionalParameter($description, 'phone');
-        $this->parseOptionalParameter($description, 'twitter');
-        $this->parseOptionalParameter($description, 'facebook');
-
-        return new ContactEntity($description->phone, $description->twitter, $description->facebook);
+        return new ContactEntity(
+            $description->getOptionalProperty('phone'),
+            $description->getOptionalProperty('twitter'),
+            $description->getOptionalProperty('facebook')
+        );
     }
 }

@@ -3,6 +3,7 @@
 namespace Gibbo\Foursquare\ClientTests\Factory\Venue;
 
 use Gibbo\Foursquare\Client\Entity\Venue\Detail;
+use Gibbo\Foursquare\Client\Factory\Description;
 use Gibbo\Foursquare\Client\Factory\Venue\DetailFactory;
 use Gibbo\Foursquare\Client\Factory\Photo\PhotoFactory;
 use Gibbo\Foursquare\Client\Entity\Photo\Photo;
@@ -29,7 +30,7 @@ class DetailFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $factory = $this->getFactory();
 
-        $this->assertEquals($expected, $factory->create($description));
+        $this->assertEquals($expected, $factory->create(new Description($description)));
     }
 
     /**
@@ -187,8 +188,8 @@ JSON
      */
     public function testCreateWithInvalidDescription(\stdClass $description, $property)
     {
-        $this->expectExceptionMessage("The entity description is missing the mandatory parameter '{$property}'");
-        $this->getFactory()->create($description);
+        $this->expectExceptionMessage("The entity description is missing the mandatory property '{$property}'");
+        $this->getFactory()->create(new Description($description));
     }
 
     /**

@@ -4,12 +4,12 @@ namespace Gibbo\Foursquare\Client\Factory\Tip;
 
 use Gibbo\Foursquare\Client\Entity\Tip\TipGroup;
 use Gibbo\Foursquare\Client\Entity\Tip\Tip;
-use Gibbo\Foursquare\Client\Factory\Factory;
+use Gibbo\Foursquare\Client\Factory\Description;
 
 /**
  * Creates a tip group from a description.
  */
-class TipGroupFactory extends Factory
+class TipGroupFactory
 {
     private $tipFactory;
 
@@ -26,18 +26,15 @@ class TipGroupFactory extends Factory
     /**
      * Create a tip group from a description.
      *
-     * @param \stdClass $description The description.
+     * @param Description $description The tip group description.
      *
      * @return TipGroup
      */
-    public function create(\stdClass $description)
+    public function create(Description $description)
     {
-        $this->validateMandatoryProperty($description, 'name');
-        $this->validateMandatoryProperty($description, 'type');
-
         return new TipGroup(
-            $description->name,
-            $description->type,
+            $description->getMandatoryProperty('name'),
+            $description->getMandatoryProperty('type'),
             $this->getTips($description)
         );
     }
@@ -45,21 +42,17 @@ class TipGroupFactory extends Factory
     /**
      * Get the venue tips.
      *
-     * @param \stdClass $description The venue description.
+     * @param Description $description The tip group description.
      *
      * @return Tip[]
      */
-    private function getTips(\stdClass $description)
+    private function getTips(Description $description)
     {
-        if (isset($description->items) === false) {
-            return [];
-        }
-
         return array_map(
             function (\stdClass $tipDescription) {
-                return $this->tipFactory->create($tipDescription);
+                return $this->tipFactory->create(new Description($tipDescription));
             },
-            $description->items
+            $description->getOptionalProperty('items', [])
         );
     }
 }

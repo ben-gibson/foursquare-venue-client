@@ -8,48 +8,43 @@ use Gibbo\Foursquare\Client\Entity\Location as LocationEntity;
 /**
  * Creates a location from a description.
  */
-class LocationFactory extends Factory
+class LocationFactory
 {
     /**
      * Create a location from a description.
      *
-     * @param \stdClass $description The description.
+     * @param Description $description The location description.
      *
      * @return LocationEntity
      */
-    public function create(\stdClass $description)
+    public function create(Description $description)
     {
-        $this->parseOptionalParameter($description, 'address');
-        $this->parseOptionalParameter($description, 'lat');
-        $this->parseOptionalParameter($description, 'lng');
-        $this->parseOptionalParameter($description, 'postalCode');
-        $this->parseOptionalParameter($description, 'city');
-        $this->parseOptionalParameter($description, 'state');
-        $this->parseOptionalParameter($description, 'country');
-
         return new LocationEntity(
-            $description->address,
+            $description->getOptionalProperty('address'),
             $this->getCoordinates($description),
-            $description->postalCode,
-            $description->city,
-            $description->state,
-            $description->country
+            $description->getOptionalProperty('postalCode'),
+            $description->getOptionalProperty('city'),
+            $description->getOptionalProperty('state'),
+            $description->getOptionalProperty('country')
         );
     }
 
     /**
      * Get the locaton coordinates.
      *
-     * @param \stdClass $description
+     * @param Description $description The location description.
      *
      * @return Coordinates|null
      */
-    private function getCoordinates(\stdClass $description)
+    private function getCoordinates(Description $description)
     {
-        if (isset($description->lat) === false || isset($description->lng) === false) {
+        $latitude  = $description->getOptionalProperty('lat');
+        $longitude = $description->getOptionalProperty('lng');
+
+        if ($latitude === null || $longitude === null) {
             return null;
         }
 
-        return new Coordinates($description->lat, $description->lng);
+        return new Coordinates($latitude, $longitude);
     }
 }

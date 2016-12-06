@@ -3,14 +3,14 @@
 namespace Gibbo\Foursquare\Client\Factory\Venue;
 
 use Gibbo\Foursquare\Client\Entity\Photo\Photo;
-use Gibbo\Foursquare\Client\Factory\Factory;
+use Gibbo\Foursquare\Client\Factory\Description;
 use Gibbo\Foursquare\Client\Factory\Photo\PhotoFactory;
 use Gibbo\Foursquare\Client\Entity\Venue\Detail;
 
 /**
  * Creates venue details from a description.
  */
-class DetailFactory extends Factory
+class DetailFactory
 {
     private $photoFactory;
 
@@ -27,63 +27,56 @@ class DetailFactory extends Factory
     /**
      * Create a venue from a description.
      *
-     * @param \stdClass $description The venue description.
+     * @param Description $description The venue details description.
      *
      * @return Detail
      */
-    public function create(\stdClass $description)
+    public function create(Description $description)
     {
-        $this->validateMandatoryProperty($description, 'verified');
-
-        $this->parseOptionalParameter($description, 'rating');
-        $this->parseOptionalParameter($description, 'timeZone');
-        $this->parseOptionalParameter($description, 'bestPhoto');
-        $this->parseOptionalParameter($description, 'url');
-        $this->parseOptionalParameter($description, 'createdAt');
-        $this->parseOptionalParameter($description, 'hereNow');
-        $this->parseOptionalParameter($description, 'tags');
-        $this->parseOptionalParameter($description, 'likes');
+        $timeZone           = $description->getOptionalProperty('timeZone');
+        $likesDescription   = $description->getOptionalProperty('likes');
+        $hereNowDescription = $description->getOptionalProperty('hereNow');
 
         return new Detail(
-            $description->verified,
+            $description->getMandatoryProperty('verified'),
             $this->getCreatedAt($description),
             $this->getBestPhoto($description),
-            $description->rating,
-            $description->url,
-            ($description->hereNow !== null) ? $description->hereNow->count : null,
-            ($description->tags !== null) ? $description->tags : [],
-            ($description->likes !== null) ? $description->likes->count : null,
-            ($description->timeZone !== null) ? new \DateTimeZone($description->timeZone) : null
+            $description->getOptionalProperty('rating'),
+            $description->getOptionalProperty('url'),
+            ($hereNowDescription instanceof Description) ? $hereNowDescription->getMandatoryProperty('count') : null,
+            $description->getOptionalProperty('tags', []),
+            ($likesDescription instanceof Description) ? $likesDescription->getMandatoryProperty('count'): null,
+            ($timeZone !== null) ? new \DateTimeZone($timeZone) : null
         );
     }
 
     /**
      * Get created at.
      *
-     * @param \stdClass $description The venue description.
+     * @param Description $description The venue details description.
      *
      * @return \DateTimeImmutable|null
      */
-    private function getCreatedAt(\stdClass $description)
+    private function getCreatedAt(Description $description)
     {
-        if ($description->createdAt !== null) {
-            return (new \DateTimeImmutable())->setTimestamp($description->createdAt);
-        }
+        $createdAt = $description->getOptionalProperty('createdAt');
 
-        return null;
+        return ($createdAt !== null) ? (new \DateTimeImmutable())->setTimestamp($createdAt) : null;
     }
 
     /**
      * Get best photo.
      *
-     * @param \stdClass $description The venue description.
+     * @param Description $description The venue details description.
      *
      * @return Photo|null
      */
-    private function getBestPhoto(\stdClass $description)
+    private function getBestPhoto(Description $description)
     {
-        if ($description->bestPhoto !== null) {
-            return $this->photoFactory->create($description->bestPhoto);
+        $bestPhotoDescription = $description->getOptionalProperty('bestPhoto');
+
+        if ($bestPhotoDescription instanceof Description) {
+            return $this->photoFactory->create($bestPhotoDescription);
         }
 
         return null;

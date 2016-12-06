@@ -6,6 +6,7 @@ use Gibbo\Foursquare\Client\Exception\ClientErrorException;
 use Gibbo\Foursquare\Client\Exception\InvalidResponseException;
 use Gibbo\Foursquare\Client\Entity\Venue\Venue;
 use Gibbo\Foursquare\Client\Exception\ServerErrorException;
+use Gibbo\Foursquare\Client\Factory\Description;
 use Gibbo\Foursquare\Client\Factory\Venue\VenueFactory;
 use Gibbo\Foursquare\Client\Options\Explore;
 use Gibbo\Foursquare\Client\Options\Search;
@@ -49,13 +50,13 @@ class Client
 
         $response = $this->httpClient->get($url, $this->getDefaultHeaders());
 
-        $description = $this->parseResponse($response);
+        $content = $this->parseResponse($response);
 
-        if (!isset($description->response->venue)) {
+        if (!isset($content->response->venue)) {
             throw InvalidResponseException::invalidResponseBody($response, 'response.venue');
         }
 
-        return $this->venueFactory->create($description->response->venue);
+        return $this->venueFactory->create(new Description($content->response->venue));
     }
 
     /**
@@ -71,15 +72,15 @@ class Client
 
         $response = $this->httpClient->get($url, $this->getDefaultHeaders());
 
-        $description = $this->parseResponse($response);
+        $content = $this->parseResponse($response);
 
-        if (!isset($description->response->venues)) {
+        if (!isset($content->response->venues)) {
             throw InvalidResponseException::invalidResponseBody($response, 'response.venues');
         }
 
         return array_map(function (\stdClass $venueDescription) {
-            return $this->venueFactory->create($venueDescription);
-        }, $description->response->venues);
+            return $this->venueFactory->create(new Description($venueDescription));
+        }, $content->response->venues);
     }
 
     /**
@@ -95,15 +96,15 @@ class Client
 
         $response = $this->httpClient->get($url, $this->getDefaultHeaders());
 
-        $description = $this->parseResponse($response);
+        $content = $this->parseResponse($response);
 
-        if (!isset($description->response->groups[0]->items)) {
+        if (!isset($content->response->groups[0]->items)) {
             throw InvalidResponseException::invalidResponseBody($response, 'response.groups[0].items');
         }
 
         return array_map(function (\stdClass $itemDescription) {
-            return $this->venueFactory->create($itemDescription->venue);
-        }, $description->response->groups[0]->items);
+            return $this->venueFactory->create(new Description($itemDescription->venue));
+        }, $content->response->groups[0]->items);
     }
 
     /**
@@ -119,15 +120,15 @@ class Client
 
         $response = $this->httpClient->get($url, $this->getDefaultHeaders());
 
-        $description = $this->parseResponse($response);
+        $content = $this->parseResponse($response);
 
-        if (!isset($description->response->venues)) {
+        if (!isset($content->response->venues)) {
             throw InvalidResponseException::invalidResponseBody($response, 'response.venues');
         }
 
         return array_map(function (\stdClass $venueDescription) {
-            return $this->venueFactory->create($venueDescription);
-        }, $description->response->venues);
+            return $this->venueFactory->create(new Description($venueDescription));
+        }, $content->response->venues);
     }
 
     /**

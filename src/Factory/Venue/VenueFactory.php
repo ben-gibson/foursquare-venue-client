@@ -8,7 +8,7 @@ use Gibbo\Foursquare\Client\Entity\Category;
 use Gibbo\Foursquare\Client\Entity\Venue\Venue;
 use Gibbo\Foursquare\Client\Factory\CategoryFactory;
 use Gibbo\Foursquare\Client\Factory\ContactFactory;
-use Gibbo\Foursquare\Client\Factory\Factory;
+use Gibbo\Foursquare\Client\Factory\Description;
 use Gibbo\Foursquare\Client\Factory\LocationFactory;
 use Gibbo\Foursquare\Client\Factory\Tip;
 use Gibbo\Foursquare\Client\Factory\Photo;
@@ -17,7 +17,7 @@ use Gibbo\Foursquare\Client\Identifier;
 /**
  * Creates venues from a description.
  */
-class VenueFactory extends Factory
+class VenueFactory
 {
     private $detailFactory;
     private $categoryFactory;
@@ -56,25 +56,20 @@ class VenueFactory extends Factory
     /**
      * Create a venue from a description.
      *
-     * @param \stdClass $description The venue description.
+     * @param Description $description The venue description.
      *
      * @return Venue
      */
-    public function create(\stdClass $description)
+    public function create(Description $description)
     {
-        $this->validateMandatoryProperty($description, 'id');
-        $this->validateMandatoryProperty($description, 'name');
-        $this->validateMandatoryProperty($description, 'contact');
-        $this->validateMandatoryProperty($description, 'location');
-
         return new Venue(
-            new Identifier($description->id),
-            $description->name,
+            new Identifier($description->getMandatoryProperty('id')),
+            $description->getMandatoryProperty('name'),
             $this->getCategories($description),
             $this->getTipGroups($description),
             $this->getPhotoGroups($description),
-            $this->contactFactory->create($description->contact),
-            $this->locationFactory->create($description->location),
+            $this->contactFactory->create($description->getMandatoryProperty('contact')),
+            $this->locationFactory->create($description->getMandatoryProperty('location')),
             $this->detailFactory->create($description)
         );
     }
@@ -82,63 +77,63 @@ class VenueFactory extends Factory
     /**
      * Get the venue categories.
      *
-     * @param \stdClass $description The venue description.
+     * @param Description $description The venue description.
      *
      * @return Category[]
      */
-    private function getCategories(\stdClass $description)
+    private function getCategories(Description $description)
     {
-        if (isset($description->categories) === false) {
-            return [];
-        }
-
         return array_map(
             function (\stdClass $categoryDescription) {
-                return $this->categoryFactory->create($categoryDescription);
+                return $this->categoryFactory->create(new Description($categoryDescription));
             },
-            $description->categories
+            $description->getOptionalProperty('categories', [])
         );
     }
 
     /**
      * Get the venue tip groups.
      *
-     * @param \stdClass $description The venue description.
+     * @param Description $description The venue description.
      *
      * @return TipGroup[]
      */
-    private function getTipGroups(\stdClass $description)
+    private function getTipGroups(Description $description)
     {
-        if (isset($description->tips->groups) === false) {
+        $tipsDescription = $description->getOptionalProperty('tips');
+
+        if (!($tipsDescription instanceof Description)) {
             return [];
         }
 
         return array_map(
             function (\stdClass $groupDescription) {
-                return $this->tipGroupFactory->create($groupDescription);
+                return $this->tipGroupFactory->create(new Description($groupDescription));
             },
-            $description->tips->groups
+            $tipsDescription->getOptionalProperty('groups', [])
         );
     }
 
     /**
      * Get the photo groups.
      *
-     * @param \stdClass $description The venue description.
+     * @param Description $description The venue description.
      *
      * @return PhotoGroup[]
      */
-    private function getPhotoGroups(\stdClass $description)
+    private function getPhotoGroups(Description $description)
     {
-        if (isset($description->photos->groups) === false) {
+        $photosDescription = $description->getOptionalProperty('photos');
+
+        if (!($photosDescription instanceof Description)) {
             return [];
         }
 
         return array_map(
             function (\stdClass $groupDescription) {
-                return $this->photoGroupFactory->create($groupDescription);
+                return $this->photoGroupFactory->create(new Description($groupDescription));
             },
-            $description->photos->groups
+            $photosDescription->getOptionalProperty('groups', [])
         );
     }
 }

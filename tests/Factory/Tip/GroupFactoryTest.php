@@ -3,6 +3,7 @@
 namespace Gibbo\Foursquare\ClientTests\Factory\Tip;
 
 use Gibbo\Foursquare\Client\Entity\Tip\TipGroup;
+use Gibbo\Foursquare\Client\Factory\Description;
 use Gibbo\Foursquare\Client\Factory\Tip\TipGroupFactory;
 use Gibbo\Foursquare\Client\Factory\Tip\TipFactory as TipFactory;
 use Gibbo\Foursquare\Client\Entity\Tip\Tip;
@@ -29,7 +30,7 @@ class GroupFactoryTest extends \PHPUnit_Framework_TestCase
     {
         $factory = $this->getFactory($this->getMockTipFactory());
 
-        $this->assertEquals($expected, $factory->create($description));
+        $this->assertEquals($expected, $factory->create(new Description($description)));
     }
 
     /**
@@ -79,8 +80,8 @@ JSON
      */
     public function testCreateWithInvalidDescription(\stdClass $description, $property)
     {
-        $this->expectExceptionMessage("The entity description is missing the mandatory parameter '{$property}'");
-        $this->getFactory($this->getMockTipFactory())->create($description);
+        $this->expectExceptionMessage("The entity description is missing the mandatory property '{$property}'");
+        $this->getFactory($this->getMockTipFactory())->create(new Description($description));
     }
 
     /**
