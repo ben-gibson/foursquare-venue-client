@@ -43,7 +43,7 @@ $venue->getName();
 $venue->getDetails()->getRating();
 
 // Search by coordinates
-$options = Search::createWithCoordinates(new Coordinates(28.538336, -81.379234))
+$options = Search::coordinates(new Coordinates(28.538336, -81.379234))
     ->setLimit(10)
     ->setRadius(500)
     ->setQuery('Donuts');
@@ -51,7 +51,7 @@ $options = Search::createWithCoordinates(new Coordinates(28.538336, -81.379234))
 $venues = $client->search($options);
     
 // Search by place
-$options = Search::createWithPlace('Chicago, IL')
+$options = Search::place('Chicago, IL')
     ->setLimit(10)
     ->setRadius(500)
     ->setQuery('Donuts');

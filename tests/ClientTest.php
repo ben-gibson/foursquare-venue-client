@@ -213,7 +213,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         $client = $this->getClient($this->getMockResponse($body), $venueFactory);
 
-        $venues = $client->search(Search::createWithPlace('Chicago, IL'));
+        $venues = $client->search(Search::place('Chicago, IL'));
 
         $this->assertCount(2, $venues);
 
@@ -223,7 +223,7 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         $client = $this->getClient($this->getMockResponse('{"meta": {"invalid": "content"}}'));
 
-        $client->search(Search::createWithPlace('Chicago, IL'));
+        $client->search(Search::place('Chicago, IL'));
     }
 
     /**

@@ -35,7 +35,7 @@ class Trending implements Options, LimitAware, RadiusAware
      *
      * @return static
      */
-    public static function createWithCoordinates(Coordinates $coordinates)
+    public static function coordinates(Coordinates $coordinates)
     {
         return new static($coordinates);
     }
