@@ -17,7 +17,7 @@ class TrendingTest extends \PHPUnit_Framework_TestCase
     public function testCreateWithCoordinates()
     {
         $coordinates = new Coordinates(40.0, 50.0);
-        $options = Trending::createWithCoordinates($coordinates);
+        $options = Trending::coordinates($coordinates);
 
         $this->assertInstanceOf(Trending::class, $options);
 
@@ -52,7 +52,7 @@ class TrendingTest extends \PHPUnit_Framework_TestCase
     {
         return [
             [
-                Trending::createWithCoordinates(new Coordinates(40.12, 50.12))->setRadius(10)->setLimit(50),
+                Trending::coordinates(new Coordinates(40.12, 50.12))->setRadius(10)->setLimit(50),
                 [
                     'll'     => new Coordinates(40.12, 50.12),
                     'radius' => 10,
@@ -60,7 +60,7 @@ class TrendingTest extends \PHPUnit_Framework_TestCase
                 ]
             ],
             [
-                Trending::createWithCoordinates(new Coordinates(40.12, 50.12))->setRadius(10),
+                Trending::coordinates(new Coordinates(40.12, 50.12))->setRadius(10),
                 [
                     'll'   => new Coordinates(40.12, 50.12),
                     'radius' => 10

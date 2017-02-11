@@ -18,7 +18,7 @@ class SearchTest extends \PHPUnit_Framework_TestCase
     {
         $coordinates = new Coordinates(40.0, 50.0);
 
-        $options = Search::createWithCoordinates($coordinates);
+        $options = Search::coordinates($coordinates);
 
         $this->assertInstanceOf(Search::class, $options);
         $this->assertCount(1, $options->toArray());
@@ -30,7 +30,7 @@ class SearchTest extends \PHPUnit_Framework_TestCase
      */
     public function testCreateWithPlace()
     {
-        $options = Search::createWithPlace('Chicago, IL');
+        $options = Search::place('Chicago, IL');
 
         $this->assertInstanceOf(Search::class, $options);
         $this->assertCount(1, $options->toArray());
@@ -45,7 +45,7 @@ class SearchTest extends \PHPUnit_Framework_TestCase
      */
     public function testCreateWithInvalidPlace($place)
     {
-        Search::createWithPlace($place);
+        Search::place($place);
     }
 
     /**
@@ -90,7 +90,7 @@ class SearchTest extends \PHPUnit_Framework_TestCase
     {
         return [
             [
-                Search::createWithPlace('Chicago, IL')->setLimit(1)->setRadius(500),
+                Search::place('Chicago, IL')->setLimit(1)->setRadius(500),
                 [
                     'near'   => 'Chicago, IL',
                     'limit'  => 1,
@@ -98,7 +98,7 @@ class SearchTest extends \PHPUnit_Framework_TestCase
                 ]
             ],
             [
-                Search::createWithCoordinates(new Coordinates(40.12, 50.12))->setLimit(40)->setRadius(10),
+                Search::coordinates(new Coordinates(40.12, 50.12))->setLimit(40)->setRadius(10),
                 [
                     'll'     => new Coordinates(40.12, 50.12),
                     'limit'  => 40,
@@ -106,7 +106,7 @@ class SearchTest extends \PHPUnit_Framework_TestCase
                 ]
             ],
             [
-                Search::createWithCoordinates(new Coordinates(40.12, 50.12))->setRadius(10),
+                Search::coordinates(new Coordinates(40.12, 50.12))->setRadius(10),
                 [
                     'll'     => new Coordinates(40.12, 50.12),
                     'radius' => 10

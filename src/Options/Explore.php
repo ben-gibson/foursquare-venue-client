@@ -54,7 +54,7 @@ class Explore implements Options
      *
      * @return static
      */
-    public static function createWithCoordinates(Coordinates $coordinates)
+    public static function coordinates(Coordinates $coordinates)
     {
         return new static($coordinates);
     }
@@ -66,7 +66,7 @@ class Explore implements Options
      *
      * @return static
      */
-    public static function createWithPlace($place)
+    public static function place($place)
     {
         \Assert\that($place)->string()->notEmpty();
 
