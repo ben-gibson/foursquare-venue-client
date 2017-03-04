@@ -7,12 +7,6 @@ namespace Gibbo\Foursquare\Client\Options\Traits;
  */
 interface QueryAware
 {
-    /**
-     * Get the query.
-     *
-     * @return string
-     */
-    public function getQuery();
 
     /**
      * Set the query.
@@ -21,5 +15,5 @@ interface QueryAware
      *
      * @return self
      */
-    public function setLimit($query);
+    public function query($query);
 }

@@ -11,12 +11,23 @@ use Gibbo\Foursquare\Client\Options\Traits\QueryAware;
 use Gibbo\Foursquare\Client\Options\Traits\RadiusAware;
 
 /**
- * Represents options available to the venue search endpoint.
+ * Represents search options.
  */
 class Search implements LimitAware, QueryAware, RadiusAware, Options
 {
+    /**
+     * @var Coordinates|null
+     */
     private $coordinates;
+
+    /**
+     * @var null|string
+     */
     private $place;
+
+    /**
+     * @var int[]
+     */
     private $categoryIds = [];
 
     use CanBeLimited;
@@ -74,43 +85,13 @@ class Search implements LimitAware, QueryAware, RadiusAware, Options
     }
 
     /**
-     * Get coordinates.
-     *
-     * @return Coordinates|null
-     */
-    public function getCoordinates()
-    {
-        return $this->coordinates;
-    }
-
-    /**
-     * Get place.
-     *
-     * @return string|null
-     */
-    public function getPlace()
-    {
-        return $this->place;
-    }
-
-    /**
-     * Get category ids.
-     *
-     * @return []
-     */
-    public function getCategoryIds()
-    {
-        return $this->categoryIds;
-    }
-
-    /**
      * Set the category ids.
      *
-     * @param array $categoryIds
+     * @param int[] $categoryIds
      *
      * @return void
      */
-    public function setCategoryIds(array $categoryIds)
+    public function categoryIds(array $categoryIds)
     {
         $this->categoryIds = $categoryIds;
     }
@@ -119,15 +100,15 @@ class Search implements LimitAware, QueryAware, RadiusAware, Options
     /**
      * {@inheritdoc}
      */
-    public function toArray()
+    public function parametrise()
     {
         return array_filter([
-            'limit'  => $this->getLimit(),
-            'll'     => $this->getCoordinates(),
-            'near'   => $this->getPlace(),
-            'radius' => $this->getRadius(),
-            'query'  => $this->getQuery(),
-            'categoryId' => implode(',', $this->getCategoryIds())
+            'limit'  => $this->limit,
+            'll'     => $this->coordinates,
+            'near'   => $this->place,
+            'radius' => $this->radius,
+            'query'  => $this->query,
+            'categoryId' => implode(',', $this->categoryIds)
         ]);
     }
 }

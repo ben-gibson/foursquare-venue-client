@@ -12,6 +12,8 @@ use Gibbo\Foursquare\Client\Options\Explore;
 use Gibbo\Foursquare\Client\Options\Search;
 use Gibbo\Foursquare\Client\Options\Trending;
 use Http\Client\Common\HttpMethodsClient;
+use Http\Discovery\HttpClientDiscovery;
+use Http\Discovery\MessageFactoryDiscovery;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -35,6 +37,23 @@ class Client
         $this->configuration = $configuration;
         $this->httpClient    = $httpClient;
         $this->venueFactory  = $venueFactory;
+    }
+
+    /**
+     * Convenience factory method creating a standard Client configuration.
+     *
+     * @param Configuration $configuration
+     * @param VenueFactory  $venueFactory
+     *
+     * @return static
+     */
+    public static function simple(Configuration $configuration, VenueFactory $venueFactory)
+    {
+        return new static(
+            $configuration,
+            new HttpMethodsClient(HttpClientDiscovery::find(), MessageFactoryDiscovery::find()),
+            $venueFactory
+        );
     }
 
     /**
@@ -68,7 +87,7 @@ class Client
      */
     public function search(Search $options)
     {
-        $url = $this->getUrl('venues/search', $options->toArray());
+        $url = $this->getUrl('venues/search', $options->parametrise());
 
         $response = $this->httpClient->get($url, $this->getDefaultHeaders());
 
@@ -92,7 +111,7 @@ class Client
      */
     public function explore(Explore $options)
     {
-        $url = $this->getUrl('venues/explore', $options->toArray());
+        $url = $this->getUrl('venues/explore', $options->parametrise());
 
         $response = $this->httpClient->get($url, $this->getDefaultHeaders());
 
@@ -116,7 +135,7 @@ class Client
      */
     public function trending(Trending $options)
     {
-        $url = $this->getUrl('venues/trending', $options->toArray());
+        $url = $this->getUrl('venues/trending', $options->parametrise());
 
         $response = $this->httpClient->get($url, $this->getDefaultHeaders());
 

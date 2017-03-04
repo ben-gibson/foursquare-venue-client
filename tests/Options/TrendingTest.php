@@ -21,21 +21,21 @@ class TrendingTest extends \PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf(Trending::class, $options);
 
-        $this->assertCount(1, $options->toArray());
-        $this->assertSame($coordinates, $options->getCoordinates());
+        $this->assertCount(1, $options->parametrise());
+        $this->assertSame($coordinates, $options->parametrise()['ll']);
     }
 
     /**
-     * Test to array.
+     * Test the options can be parametrised.
      *
      * @param Trending $options
      * @param array $expected
      *
      * @dataProvider  optionsProvider
      */
-    public function testToArray(Trending $options, array $expected)
+    public function testParametrise(Trending $options, array $expected)
     {
-        $actual = $options->toArray();
+        $actual = $options->parametrise();
 
         ksort($actual);
         ksort($expected);
@@ -52,7 +52,7 @@ class TrendingTest extends \PHPUnit_Framework_TestCase
     {
         return [
             [
-                Trending::coordinates(new Coordinates(40.12, 50.12))->setRadius(10)->setLimit(50),
+                Trending::coordinates(new Coordinates(40.12, 50.12))->radius(10)->limit(50),
                 [
                     'll'     => new Coordinates(40.12, 50.12),
                     'radius' => 10,
@@ -60,7 +60,7 @@ class TrendingTest extends \PHPUnit_Framework_TestCase
                 ]
             ],
             [
-                Trending::coordinates(new Coordinates(40.12, 50.12))->setRadius(10),
+                Trending::coordinates(new Coordinates(40.12, 50.12))->radius(10),
                 [
                     'll'   => new Coordinates(40.12, 50.12),
                     'radius' => 10

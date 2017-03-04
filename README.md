@@ -5,7 +5,6 @@
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
 [![Build Status][ico-travis]][link-travis]
-[![Coverage][ico-coveralls]][link-coveralls]
 [![Total Downloads][ico-downloads]][link-downloads]
 
 A `PHP` client library for interacting with the `Foursquare` userless venue API.
@@ -25,17 +24,18 @@ $ composer require ben-gibson/foursquare-venue-client
 
 ``` php
 <?php
-      
+
 require_once __DIR__.'/../vendor/autoload.php';
-    
+
+use Gibbo\Foursquare\Client\Client;
 use Gibbo\Foursquare\Client\Configuration;
 use Gibbo\Foursquare\Client\Entity\Coordinates;
-use Gibbo\Foursquare\Client\Factory;
+use Gibbo\Foursquare\Client\Factory\Venue\VenueFactory;
 use Gibbo\Foursquare\Client\Identifier;
 use Gibbo\Foursquare\Client\Options\Search;
-    
-$client = Factory::create(new Configuration('client-id', 'client-secret'));
-    
+
+$client = Client::simple(new Configuration('client-id', 'client-secret'), VenueFactory::simple());
+
 // Get by id
 $venue = $client->getVenue(new Identifier('430d0a00f964a5203e271fe3'));
 
@@ -44,18 +44,18 @@ $venue->getDetails()->getRating();
 
 // Search by coordinates
 $options = Search::coordinates(new Coordinates(28.538336, -81.379234))
-    ->setLimit(10)
-    ->setRadius(500)
-    ->setQuery('Donuts');
-    
+    ->limit(10)
+    ->radius(500)
+    ->query('Donuts');
+
 $venues = $client->search($options);
-    
+
 // Search by place
 $options = Search::place('Chicago, IL')
-    ->setLimit(10)
-    ->setRadius(500)
-    ->setQuery('Donuts');
-    
+    ->limit(10)
+    ->radius(500)
+    ->query('Donuts');
+
 $venues = $client->search($options);
 ```
 
@@ -89,11 +89,9 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [ico-version]: https://img.shields.io/packagist/v/ben-gibson/foursquare-venue-client.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square
 [ico-travis]: https://img.shields.io/travis/ben-gibson/foursquare-venue-client/master.svg?style=flat-square
-[ico-coveralls]: https://img.shields.io/coveralls/ben-gibson/foursquare-venue-client/master.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/ben-gibson/foursquare-venue-client.svg?style=flat-square
 [link-packagist]: https://packagist.org/packages/ben-gibson/foursquare-venue-client
 [link-travis]: https://travis-ci.org/ben-gibson/foursquare-venue-client
-[link-coveralls]: https://coveralls.io/github/ben-gibson/foursquare-venue-client
 [link-downloads]: https://packagist.org/packages/ben-gibson/foursquare-venue-client
 [link-author]: https://github.com/ben-gibson
 [link-contributors]: ../../contributors

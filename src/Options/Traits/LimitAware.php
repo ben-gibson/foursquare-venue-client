@@ -7,12 +7,6 @@ namespace Gibbo\Foursquare\Client\Options\Traits;
  */
 interface LimitAware
 {
-    /**
-     * Get limit.
-     *
-     * @return int
-     */
-    public function getLimit();
 
     /**
      * Set the limit.
@@ -21,5 +15,5 @@ interface LimitAware
      *
      * @return self
      */
-    public function setLimit($limit);
+    public function limit($limit);
 }
