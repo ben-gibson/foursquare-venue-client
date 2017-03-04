@@ -12,12 +12,35 @@ use Gibbo\Foursquare\Client\Options\Traits\CanSupportRadius;
  */
 class Explore implements Options
 {
+    /**
+     * @var Coordinates|null
+     */
     private $coordinates;
+
+    /**
+     * @var null|string
+     */
     private $place;
+
+    /**
+     * @var bool
+     */
     private $targetToCurrentTime = true;
-    private $targetToCurrentDay  = true;
-    private $includeOpenOnly     = false;
-    private $sortByDistance      = false;
+
+    /**
+     * @var bool
+     */
+    private $targetToCurrentDay = true;
+
+    /**
+     * @var bool
+     */
+    private $includeOpenOnly = false;
+
+    /**
+     * @var bool
+     */
+    private $sortByDistance = false;
 
     use CanBeLimited;
     use CanBeQueried;
@@ -74,45 +97,15 @@ class Explore implements Options
     }
 
     /**
-     * Get coordinates.
-     *
-     * @return Coordinates|null
-     */
-    public function getCoordinates()
-    {
-        return $this->coordinates;
-    }
-
-    /**
-     * Get place.
-     *
-     * @return string|null
-     */
-    public function getPlace()
-    {
-        return $this->place;
-    }
-
-    /**
-     * Should results to be targeted based on the current time.
-     *
-     * @return boolean
-     */
-    public function shouldTargetToCurrentTime()
-    {
-        return $this->targetToCurrentTime;
-    }
-
-    /**
      * Set the time targeting preference.
      *
-     * See description of 'time' here https://developer.foursquare.com/docs/venues/explore
+     * @See https://developer.foursquare.com/docs/venues/explore
      *
      * @param boolean $targetToCurrentTime
      *
      * @return self
      */
-    public function setTargetToCurrentTime($targetToCurrentTime)
+    public function targetToCurrentTime($targetToCurrentTime)
     {
         $this->targetToCurrentTime = $targetToCurrentTime;
 
@@ -120,39 +113,19 @@ class Explore implements Options
     }
 
     /**
-     * Should results to be targeted based on the current day.
-     *
-     * @return boolean
-     */
-    public function shouldTargetToCurrentDay()
-    {
-        return $this->targetToCurrentDay;
-    }
-
-    /**
      * Set the day targeting preference.
      *
-     * See description of 'day' here https://developer.foursquare.com/docs/venues/explore
+     * @see https://developer.foursquare.com/docs/venues/explore
      *
      * @param boolean $targetToCurrentDay
      *
      * @return self
      */
-    public function setTargetToCurrentDay($targetToCurrentDay)
+    public function targetToCurrentDay($targetToCurrentDay)
     {
         $this->targetToCurrentDay = $targetToCurrentDay;
 
         return $this;
-    }
-
-    /**
-     * Should we only include open venues in results.
-     *
-     * @return boolean
-     */
-    public function includeOpenOnly()
-    {
-        return $this->includeOpenOnly;
     }
 
     /**
@@ -162,21 +135,11 @@ class Explore implements Options
      *
      * @return self
      */
-    public function setIncludeOpenOnly($includeOpenOnly)
+    public function includeOpenOnly($includeOpenOnly)
     {
         $this->includeOpenOnly = $includeOpenOnly;
 
         return $this;
-    }
-
-    /**
-     * Should we sort the results by distance instead of relevance.
-     *
-     * @return boolean
-     */
-    public function shouldSortByDistance()
-    {
-        return $this->sortByDistance;
     }
 
     /**
@@ -186,7 +149,7 @@ class Explore implements Options
      *
      * @return self
      */
-    public function setSortByDistance($sortByDistance)
+    public function sortByDistance($sortByDistance)
     {
         $this->sortByDistance = $sortByDistance;
 
@@ -196,18 +159,18 @@ class Explore implements Options
     /**
      * {@inheritdoc}
      */
-    public function toArray()
+    public function parametrise()
     {
         return array_filter([
-            'limit'          => $this->getLimit(),
-            'll'             => $this->getCoordinates(),
-            'near'           => $this->getPlace(),
-            'radius'         => $this->getRadius(),
-            'query'          => $this->getQuery(),
-            'time'           => $this->shouldTargetToCurrentTime() ? null : 'any',
-            'day'            => $this->shouldTargetToCurrentDay() ? null : 'any',
-            'openNow'        => (int)$this->includeOpenOnly(),
-            'sortByDistance' => (int)$this->shouldSortByDistance(),
+            'limit'          => $this->limit,
+            'll'             => $this->coordinates,
+            'near'           => $this->place,
+            'radius'         => $this->radius,
+            'query'          => $this->query,
+            'time'           => $this->targetToCurrentTime ? null : 'any',
+            'day'            => $this->targetToCurrentDay ? null : 'any',
+            'openNow'        => (int)$this->includeOpenOnly,
+            'sortByDistance' => (int)$this->sortByDistance,
         ]);
     }
 }

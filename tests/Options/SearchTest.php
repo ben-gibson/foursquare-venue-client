@@ -21,8 +21,8 @@ class SearchTest extends \PHPUnit_Framework_TestCase
         $options = Search::coordinates($coordinates);
 
         $this->assertInstanceOf(Search::class, $options);
-        $this->assertCount(1, $options->toArray());
-        $this->assertSame($coordinates, $options->getCoordinates());
+        $this->assertCount(1, $options->parametrise());
+        $this->assertSame($coordinates, $options->parametrise()['ll']);
     }
 
     /**
@@ -33,8 +33,8 @@ class SearchTest extends \PHPUnit_Framework_TestCase
         $options = Search::place('Chicago, IL');
 
         $this->assertInstanceOf(Search::class, $options);
-        $this->assertCount(1, $options->toArray());
-        $this->assertArrayHasKey('near', $options->toArray());
+        $this->assertCount(1, $options->parametrise());
+        $this->assertArrayHasKey('near', $options->parametrise());
     }
 
     /**
@@ -64,16 +64,16 @@ class SearchTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test to array.
+     * Test the options can be parametrised.
      *
      * @param Search $options
      * @param array $expected
      *
      * @dataProvider  optionsProvider
      */
-    public function testToArray(Search $options, array $expected)
+    public function testParametrise(Search $options, array $expected)
     {
-        $actual = $options->toArray();
+        $actual = $options->parametrise();
 
         ksort($actual);
         ksort($expected);
@@ -90,7 +90,7 @@ class SearchTest extends \PHPUnit_Framework_TestCase
     {
         return [
             [
-                Search::place('Chicago, IL')->setLimit(1)->setRadius(500),
+                Search::place('Chicago, IL')->limit(1)->radius(500),
                 [
                     'near'   => 'Chicago, IL',
                     'limit'  => 1,
@@ -98,7 +98,7 @@ class SearchTest extends \PHPUnit_Framework_TestCase
                 ]
             ],
             [
-                Search::coordinates(new Coordinates(40.12, 50.12))->setLimit(40)->setRadius(10),
+                Search::coordinates(new Coordinates(40.12, 50.12))->limit(40)->radius(10),
                 [
                     'll'     => new Coordinates(40.12, 50.12),
                     'limit'  => 40,
@@ -106,7 +106,7 @@ class SearchTest extends \PHPUnit_Framework_TestCase
                 ]
             ],
             [
-                Search::coordinates(new Coordinates(40.12, 50.12))->setRadius(10),
+                Search::coordinates(new Coordinates(40.12, 50.12))->radius(10),
                 [
                     'll'     => new Coordinates(40.12, 50.12),
                     'radius' => 10

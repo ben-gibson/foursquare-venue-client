@@ -9,10 +9,13 @@ use Gibbo\Foursquare\Client\Options\Traits\LimitAware;
 use Gibbo\Foursquare\Client\Options\Traits\RadiusAware;
 
 /**
- * Represents options available to the venue trending endpoint.
+ * Represents trending options.
  */
 class Trending implements Options, LimitAware, RadiusAware
 {
+    /**
+     * @var Coordinates
+     */
     private $coordinates;
 
     use CanBeLimited;
@@ -43,22 +46,12 @@ class Trending implements Options, LimitAware, RadiusAware
     /**
      * {@inheritdoc}
      */
-    public function toArray()
+    public function parametrise()
     {
         return array_filter([
-            'limit'  => $this->getLimit(),
-            'll'     => $this->getCoordinates(),
-            'radius' => $this->getRadius(),
+            'limit'  => $this->limit,
+            'll'     => $this->coordinates,
+            'radius' => $this->radius,
         ]);
-    }
-
-    /**
-     * Get coordinates.
-     *
-     * @return Coordinates
-     */
-    public function getCoordinates()
-    {
-        return $this->coordinates;
     }
 }

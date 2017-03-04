@@ -10,8 +10,12 @@ use Gibbo\Foursquare\Client\Factory\CategoryFactory;
 use Gibbo\Foursquare\Client\Factory\ContactFactory;
 use Gibbo\Foursquare\Client\Factory\Description;
 use Gibbo\Foursquare\Client\Factory\LocationFactory;
+use Gibbo\Foursquare\Client\Factory\Photo\PhotoFactory;
+use Gibbo\Foursquare\Client\Factory\Photo\PhotoGroupFactory;
 use Gibbo\Foursquare\Client\Factory\Tip;
 use Gibbo\Foursquare\Client\Factory\Photo;
+use Gibbo\Foursquare\Client\Factory\Tip\TipFactory;
+use Gibbo\Foursquare\Client\Factory\Tip\TipGroupFactory;
 use Gibbo\Foursquare\Client\Identifier;
 
 /**
@@ -52,6 +56,22 @@ class VenueFactory
         $this->photoGroupFactory = $photoGroupFactory;
     }
 
+    /**
+     * Convenience factory method creating a standard Venue factory configuration.
+     *
+     * @return static
+     */
+    public static function simple()
+    {
+        return new static(
+            new DetailFactory(new PhotoFactory()),
+            new CategoryFactory(),
+            new ContactFactory(),
+            new LocationFactory(),
+            new TipGroupFactory(new TipFactory()),
+            new PhotoGroupFactory(new PhotoFactory())
+        );
+    }
 
     /**
      * Create a venue from a description.

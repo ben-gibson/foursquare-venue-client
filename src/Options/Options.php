@@ -8,9 +8,9 @@ namespace Gibbo\Foursquare\Client\Options;
 interface Options
 {
     /**
-     * Return an array representation of the options.
+     * Return the parametrised options.
      *
      * @return array
      */
-    public function toArray();
+    public function parametrise();
 }

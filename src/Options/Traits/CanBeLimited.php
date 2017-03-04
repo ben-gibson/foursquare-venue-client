@@ -12,23 +12,13 @@ trait CanBeLimited
     private $limit;
 
     /**
-     * Get limit.
-     *
-     * @return int
-     */
-    public function getLimit()
-    {
-        return $this->limit;
-    }
-
-    /**
      * Set the limit.
      *
      * @param int $limit
      *
      * @return self
      */
-    public function setLimit($limit)
+    public function limit($limit)
     {
         Assertion::integer($limit);
         Assertion::range($limit, 1, 50);

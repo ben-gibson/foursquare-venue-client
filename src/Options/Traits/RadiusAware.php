@@ -7,12 +7,6 @@ namespace Gibbo\Foursquare\Client\Options\Traits;
  */
 interface RadiusAware
 {
-    /**
-     * Get radius.
-     *
-     * @return int
-     */
-    public function getRadius();
 
     /**
      * Set radius.
@@ -21,5 +15,5 @@ interface RadiusAware
      *
      * @return self
      */
-    public function setRadius($meters);
+    public function radius($meters);
 }

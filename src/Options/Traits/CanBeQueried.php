@@ -10,23 +10,13 @@ trait CanBeQueried
     private $query;
 
     /**
-     * Get query.
-     *
-     * @return string
-     */
-    public function getQuery()
-    {
-        return $this->query;
-    }
-
-    /**
      * Set the query.
      *
      * @param string $query
      *
      * @return self
      */
-    public function setQuery($query)
+    public function query($query)
     {
         \Assert\that($query)->string()->notEmpty();
 
